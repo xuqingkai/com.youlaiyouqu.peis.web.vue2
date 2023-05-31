@@ -4,11 +4,13 @@
       v-loading="listLoading"
       :data="list"
       element-loading-text="Loading"
+      stripe="true"
+      height="500"
       border
       fit
       highlight-current-row
     >
-      <el-table-column align="center" label="体检号" width="95">
+      <el-table-column align="center" label="体检号" width="95" fixed="left">
         <template slot-scope="scope">
           {{ scope.row.today_no }}
         </template>
