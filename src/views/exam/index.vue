@@ -5,82 +5,96 @@
       :data="list"
       element-loading-text="Loading"
       stripe="true"
-      height="500"
+      height="800"
+      max-height="800"
       border
       fit
       highlight-current-row
     >
-      <el-table-column align="center" label="体检号" width="95" fixed="left">
+      <el-table-column type="selection" width="60"></el-table-column>
+      <el-table-column align="center" label="体检号" fixed="left">
         <template slot-scope="scope">
-          {{ scope.row.today_no }}
+          {{ scope.row.exam_no }}
         </template>
       </el-table-column>
-      <el-table-column align="center" label="体检类型" width="95">
+      <el-table-column align="center" label="体检类型">
         <template slot-scope="scope">
-          {{ scope.$index }}
+          {{ scope.row.exam_type }}
         </template>
       </el-table-column>
-      <el-table-column align="center" label="姓名" width="95">
+      <el-table-column align="center" label="姓名">
         <template slot-scope="scope">
-          {{ scope.$index }}
+          {{ scope.row.exam_name }}
         </template>
       </el-table-column>
-      <el-table-column align="center" label="性别" width="95">
+      <el-table-column align="center" label="性别">
         <template slot-scope="scope">
-          {{ scope.$index }}
+          {{ scope.row.exam_sex }}
         </template>
       </el-table-column>
-      <el-table-column align="center" label="年龄" width="95">
+      <el-table-column align="center" label="年龄">
         <template slot-scope="scope">
-          {{ scope.$index }}
+          {{ scope.row.exam_age }}
         </template>
       </el-table-column>
-      <el-table-column align="center" label="生日" width="95">
+      <el-table-column align="center" label="生日">
         <template slot-scope="scope">
-          {{ scope.$index }}
+          {{ scope.row.exam_birthday }}
         </template>
       </el-table-column>
-      <el-table-column align="center" label="所属" width="95">
+      <el-table-column align="center" label="所属">
         <template slot-scope="scope">
-          {{ scope.$index }}
+          {{ scope.row.exam_region }}
         </template>
       </el-table-column>
-      <el-table-column align="center" label="证件" width="95">
+      <el-table-column align="center" width="180" label="证件">
         <template slot-scope="scope">
           {{ scope.row.exam_idcard_no }}
         </template>
       </el-table-column>
-      <el-table-column align="center" label="慢病" width="95">
+      <el-table-column align="center" width="180" label="慢病">
         <template slot-scope="scope">
-          {{ scope.$index }}
+          {{ scope.row.manbing }}
         </template>
       </el-table-column>
-      <el-table-column label="Title">
-        <template slot-scope="scope">
-          {{ scope.row.author }}
-        </template>
-      </el-table-column>
-      <el-table-column label="体检" width="110" align="center">
+      <el-table-column label="体检" align="center">
         <template slot-scope="scope">
           {{ scope.row.exam_status }}
         </template>
       </el-table-column>
-      <el-table-column label="问诊" width="110" align="center">
+      <el-table-column label="问诊" align="center">
         <template slot-scope="scope">
           {{ scope.row.wenzhen_status }}
         </template>
       </el-table-column>
-      <el-table-column class-name="status-col" label="上传" width="110" align="center">
+      <el-table-column class-name="status-col" label="上传" align="center">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.status | statusFilter">{{ scope.row.status }}</el-tag>
+          <el-tag :type="scope.row.upload_status | statusFilter">{{ scope.row.upload_status_text }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column align="center" prop="created_at" label="体检日期" width="200">
         <template slot-scope="scope">
-          <i class="el-icon-time" />
-          <span>{{ scope.row.display_time }}</span>
+          {{ scope.row.exam_time }}
         </template>
       </el-table-column>
+      <el-table-column label="详情" width="55" type="expand">
+        <template slot-scope="scope">
+            <el-form label-position="left" inline>
+                <el-form-item label="身高体重">{{ scope.$index }}</el-form-item>
+                <el-form-item label="血压">√</el-form-item>
+                <el-form-item label="中医体质辨识">√</el-form-item>
+                <el-form-item label="自理能力评估">√</el-form-item>
+                <el-form-item label="认知功能评估">√</el-form-item>
+                <el-form-item label="情感状态评估">√</el-form-item>
+                <el-form-item label="心电">√</el-form-item>
+                <el-form-item label="B超">√</el-form-item>
+                <el-form-item label="尿常规">√</el-form-item>
+                <el-form-item label="血常规">√</el-form-item>
+                <el-form-item label="血生化">√</el-form-item>
+            </el-form>
+        </template>
+    </el-table-column>
+
     </el-table>
   </div>
 </template>
@@ -92,9 +106,9 @@ export default {
   filters: {
     statusFilter(status) {
       const statusMap = {
-        published: 'success',
-        draft: 'gray',
-        deleted: 'danger'
+        success: 'success',
+        wait: 'gray',
+        fail: 'danger'
       }
       return statusMap[status]
     }

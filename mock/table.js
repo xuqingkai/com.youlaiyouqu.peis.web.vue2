@@ -2,19 +2,21 @@ const Mock = require('mockjs')
 
 const data = Mock.mock({
   'items|30': [{
-    exam_no:'23053110000',
+    exam_no:'23053110001',
     today_no:'1',
+    exam_type:'老年人查体',
+    exam_name:'测试员',
+    exam_sex:'男',
+    exam_age:'66',
+    exam_birthday:'1955-05-05',
+    exam_region:'大张庄',
     exam_idcard_no:'@id',
+    manbing:'高、糖、肺、神、脑、冠',
     exam_status:'10/15',
-    wenzhn_status:'√',
-      
-      
-    id: '@id',
-    title: '@sentence(10, 20)',
-    'status|1': ['成功', '待上传', '失败'],
-    author: 'name',
-    display_time: '@datetime',
-    pageviews: '@integer(300, 5000)'
+    wenzhen_status:'√',
+    upload_status: 'success',
+    upload_status_text: '成功',
+    exam_time:'2023-05-31 08:16:17',
   }]
 })
 
