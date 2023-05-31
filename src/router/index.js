@@ -57,14 +57,14 @@ export const constantRoutes = [
   },
 
   {
-    path: '/patient',
+    path: '/exam',
     component: Layout,
     children: [
       {
-        path: 'create',
+        path: 'add',
         name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: '建档/登记', icon: 'form' }
+        component: () => import('@/views/exam/add'),
+        meta: { title: '建档登记', icon: 'form' }
       }
     ]
   },
@@ -78,7 +78,7 @@ export const constantRoutes = [
       {
         path: 'exam',
         name: 'Table',
-        component: () => import('@/views/table/index'),
+        component: () => import('@/views/exam/index'),
         meta: { title: '体检信息', icon: 'table' }
       },
       {
