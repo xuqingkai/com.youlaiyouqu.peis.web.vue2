@@ -32,6 +32,7 @@ import Layout from '@/layout'
  */
 export const constantRoutes = [
   {
+    meta: { title: '后台'},
     path: '/login',
     component: () => import('@/views/login/index'),
     hidden: true
@@ -51,100 +52,203 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      meta: { title: '首页', icon: 'dashboard' }
     }]
   },
 
   {
-    path: '/example',
+    path: '/patient',
+    component: Layout,
+    children: [
+      {
+        path: 'create',
+        name: 'Form',
+        component: () => import('@/views/form/index'),
+        meta: { title: '建档/登记', icon: 'form' }
+      }
+    ]
+  },
+  {
+    path: '/eleder',
     component: Layout,
     redirect: '/example/table',
     name: 'Example',
-    meta: { title: 'Example', icon: 'el-icon-s-help' },
+    meta: { title: '老年人查体', icon: 'el-icon-s-help' },
     children: [
       {
-        path: 'table',
+        path: 'exam',
         name: 'Table',
         component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
+        meta: { title: '体检信息', icon: 'table' }
       },
       {
-        path: 'tree',
+        path: 'wenzhen',
+        name: 'Table',
+        component: () => import('@/views/table/index'),
+        meta: { title: '全科问诊', icon: 'table' }
+      },
+      {
+        path: 'zhongyi',
+        name: 'Table',
+        component: () => import('@/views/table/index'),
+        meta: { title: '中医体质辨识', icon: 'table' }
+      },
+      {
+        path: 'zili',
         name: 'Tree',
         component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
+        meta: { title: '自理能力评估', icon: 'tree' }
+      },
+      {
+        path: 'renzhi',
+        name: 'Tree',
+        component: () => import('@/views/tree/index'),
+        meta: { title: '认知功能评估', icon: 'tree' }
+      },
+      {
+        path: 'qinggan',
+        name: 'Tree',
+        component: () => import('@/views/tree/index'),
+        meta: { title: '情感状态评估', icon: 'tree' }
+      }
+    ]
+  },
+  {
+    path: '/manbing',
+    component: Layout,
+    redirect: '/example/table',
+    name: 'Example',
+    meta: { title: '慢病管理', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'gaoxueya',
+        name: 'Table',
+        component: () => import('@/views/table/index'),
+        meta: { title: '高血压', icon: 'table' }
+      },
+      {
+        path: 'tangniaobing',
+        name: 'Tree',
+        component: () => import('@/views/tree/index'),
+        meta: { title: '糖尿病', icon: 'tree' }
+      },
+      {
+        path: 'feijiehe',
+        name: 'Tree',
+        component: () => import('@/views/tree/index'),
+        meta: { title: '肺结核', icon: 'tree' }
+      },
+      {
+        path: 'jingshenbing',
+        name: 'Tree',
+        component: () => import('@/views/tree/index'),
+        meta: { title: '精神病', icon: 'tree' }
+      },
+      {
+        path: 'naocuzhong',
+        name: 'Tree',
+        component: () => import('@/views/tree/index'),
+        meta: { title: '脑卒中', icon: 'tree' }
       }
     ]
   },
 
   {
-    path: '/form',
+    path: '/patient',
     component: Layout,
     children: [
       {
         path: 'index',
         name: 'Form',
         component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
+        meta: { title: '档案信息', icon: 'form' }
       }
     ]
   },
 
   {
-    path: '/nested',
+    path: '/admin',
     component: Layout,
     redirect: '/nested/menu1',
     name: 'Nested',
     meta: {
-      title: 'Nested',
+      title: '系统设置',
       icon: 'nested'
     },
     children: [
       {
-        path: 'menu1',
-        component: () => import('@/views/nested/menu1/index'), // Parent router-view
-        name: 'Menu1',
-        meta: { title: 'Menu1' },
-        children: [
-          {
-            path: 'menu1-1',
-            component: () => import('@/views/nested/menu1/menu1-1'),
-            name: 'Menu1-1',
-            meta: { title: 'Menu1-1' }
-          },
-          {
-            path: 'menu1-2',
-            component: () => import('@/views/nested/menu1/menu1-2'),
-            name: 'Menu1-2',
-            meta: { title: 'Menu1-2' },
-            children: [
-              {
-                path: 'menu1-2-1',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                name: 'Menu1-2-1',
-                meta: { title: 'Menu1-2-1' }
-              },
-              {
-                path: 'menu1-2-2',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                name: 'Menu1-2-2',
-                meta: { title: 'Menu1-2-2' }
-              }
-            ]
-          },
-          {
-            path: 'menu1-3',
-            component: () => import('@/views/nested/menu1/menu1-3'),
-            name: 'Menu1-3',
-            meta: { title: 'Menu1-3' }
-          }
-        ]
-      },
-      {
-        path: 'menu2',
+        path: 'orgs',
         component: () => import('@/views/nested/menu2/index'),
         name: 'Menu2',
-        meta: { title: 'menu2' }
+        meta: { title: '所有单位' }
+      },
+      {
+        path: 'org',
+        component: () => import('@/views/nested/menu2/index'),
+        name: 'Menu2',
+        meta: { title: '单位设置' }
+      },
+      {
+        path: 'office',
+        component: () => import('@/views/nested/menu2/index'),
+        name: 'Menu2',
+        meta: { title: '科室设置' }
+      },
+      {
+        path: 'org',
+        component: () => import('@/views/nested/menu2/index'),
+        name: 'user',
+        meta: { title: '用户管理' }
+      },
+      {
+        path: 'exam_type',
+        component: () => import('@/views/nested/menu2/index'),
+        name: 'Menu2',
+        meta: { title: '体检类型' }
+      },
+      {
+        path: 'package',
+        component: () => import('@/views/nested/menu2/index'),
+        name: 'Menu2',
+        meta: { title: '套餐设置' }
+      },
+      {
+        path: 'combo',
+        component: () => import('@/views/nested/menu2/index'),
+        name: 'Menu2',
+        meta: { title: '组合设置' }
+      },
+      {
+        path: 'item',
+        component: () => import('@/views/nested/menu2/index'),
+        name: 'Menu2',
+        meta: { title: '项目设置' }
+      },
+      {
+        path: 'setting',
+        component: () => import('@/views/nested/menu1/index'), // Parent router-view
+        name: 'Menu1',
+        meta: { title: '其他设置' },
+        children: [
+          {
+            path: 'index',
+            component: () => import('@/views/nested/menu1/menu1-1'),
+            name: 'Menu1-1',
+            meta: { title: '平台设置' }
+          },
+          {
+            path: 'report',
+            component: () => import('@/views/nested/menu1/menu1-3'),
+            name: 'Menu1-3',
+            meta: { title: '报表模板' }
+          },
+          {
+            path: 'device',
+            component: () => import('@/views/nested/menu1/menu1-3'),
+            name: 'Menu1-3',
+            meta: { title: '终端管理' }
+          }
+        ]
       }
     ]
   },
@@ -155,11 +259,10 @@ export const constantRoutes = [
     children: [
       {
         path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: { title: 'External Link', icon: 'link' }
+        meta: { title: '在线帮助', icon: 'link' }
       }
     ]
   },
-
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
