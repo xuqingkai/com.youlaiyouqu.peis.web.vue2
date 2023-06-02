@@ -52,6 +52,21 @@
           {{ scope.row.exam_idcard_no }}
         </template>
       </el-table-column>
+      <el-table-column  align="center" label="得分">
+        <template slot-scope="scope">
+          {{ scope.row.renzhi_score }}
+        </template>
+      </el-table-column>
+      <el-table-column  align="center" label="结果">
+        <template slot-scope="scope">
+          {{ scope.row.renzhi_result }}
+        </template>
+      </el-table-column>
+      <el-table-column class-name="status-col" label="上传" align="center">
+        <template slot-scope="scope">
+          <el-tag :type="scope.row.upload_status | statusFilter">{{ scope.row.upload_status_text }}</el-tag>
+        </template>
+      </el-table-column>
       <el-table-column align="center" prop="created_at" label="体检日期" width="200">
         <template slot-scope="scope">
           {{ scope.row.exam_time }}
@@ -60,17 +75,11 @@
       <el-table-column label="详情" width="55" type="expand">
         <template slot-scope="scope">
             <el-form label-position="left" inline>
-                <el-form-item label="身高体重">{{ scope.$index }}</el-form-item>
-                <el-form-item label="血压">√</el-form-item>
-                <el-form-item label="中医体质辨识">√</el-form-item>
-                <el-form-item label="自理能力评估">√</el-form-item>
-                <el-form-item label="认知功能评估">√</el-form-item>
-                <el-form-item label="情感状态评估">√</el-form-item>
-                <el-form-item label="心电">√</el-form-item>
-                <el-form-item label="B超">√</el-form-item>
-                <el-form-item label="尿常规">√</el-form-item>
-                <el-form-item label="血常规">√</el-form-item>
-                <el-form-item label="血生化">√</el-form-item>
+              <el-form-item label="定向力">{{ scope.row.renzhi_dingxiang }}</el-form-item>
+              <el-form-item label="记忆力">{{ scope.row.renzhi_jiyi }}</el-form-item>
+              <el-form-item label="注意力和计算力">{{ scope.row.renzhi_zhuyi }}</el-form-item>
+              <el-form-item label="回忆能力">{{ scope.row.renzhi_huiyi }}</el-form-item>
+              <el-form-item label="语言能力">{{ scope.row.renzhi_yuyan }}</el-form-item>
             </el-form>
         </template>
     </el-table-column>

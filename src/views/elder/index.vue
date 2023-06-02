@@ -52,6 +52,26 @@
           {{ scope.row.exam_idcard_no }}
         </template>
       </el-table-column>
+      <el-table-column align="center" width="180" label="慢病">
+        <template slot-scope="scope">
+          {{ scope.row.manbing }}
+        </template>
+      </el-table-column>
+      <el-table-column label="体检" align="center">
+        <template slot-scope="scope">
+          {{ scope.row.exam_status }}
+        </template>
+      </el-table-column>
+      <el-table-column label="问诊" align="center">
+        <template slot-scope="scope">
+          {{ scope.row.wenzhen_status }}
+        </template>
+      </el-table-column>
+      <el-table-column class-name="status-col" label="上传" align="center">
+        <template slot-scope="scope">
+          <el-tag :type="scope.row.upload_status | statusFilter">{{ scope.row.upload_status_text }}</el-tag>
+        </template>
+      </el-table-column>
       <el-table-column align="center" prop="created_at" label="体检日期" width="200">
         <template slot-scope="scope">
           {{ scope.row.exam_time }}

@@ -69,6 +69,18 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/exam',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'Form',
+        component: () => import('@/views/exam/index'),
+        meta: { title: '体检记录', icon: 'form' }
+      }
+    ]
+  },
+  {
     path: '/eleder',
     component: Layout,
     redirect: '/example/table',
@@ -76,82 +88,227 @@ export const constantRoutes = [
     meta: { title: '老年人查体', icon: 'el-icon-s-help' },
     children: [
       {
-        path: 'exam',
+        path: 'index',
         name: 'Table',
-        component: () => import('@/views/exam/index'),
-        meta: { title: '体检信息', icon: 'table' }
-      },
-      {
-        path: 'wenzhen',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: '全科问诊', icon: 'table' }
+        component: () => import('@/views/elder/index'),
+        meta: { title: '健康体检表', icon: 'table' }
       },
       {
         path: 'zhongyi',
         name: 'Table',
-        component: () => import('@/views/table/index'),
+        component: () => import('@/views/elder/zhongyi'),
         meta: { title: '中医体质辨识', icon: 'table' }
       },
       {
         path: 'zili',
         name: 'Tree',
-        component: () => import('@/views/tree/index'),
+        component: () => import('@/views/elder/zili'),
         meta: { title: '自理能力评估', icon: 'tree' }
       },
       {
         path: 'renzhi',
         name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '认知功能评估', icon: 'tree' }
+        component: () => import('@/views/elder/renzhi'),
+        meta: { title: '认知功能筛查', icon: 'tree' }
       },
       {
         path: 'qinggan',
         name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '情感状态评估', icon: 'tree' }
+        component: () => import('@/views/elder/qinggan'),
+        meta: { title: '情感状态筛查', icon: 'tree' }
       }
     ]
   },
   {
-    path: '/manbing',
+    path: '/suifang',
     component: Layout,
     redirect: '/example/table',
     name: 'Example',
-    meta: { title: '慢病管理', icon: 'el-icon-s-help' },
+    meta: { title: '随访', icon: 'el-icon-s-help' },
     children: [
       {
-        path: 'gaoxueya',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: '高血压', icon: 'table' }
+        path: 'manbing',
+        component: () => import('@/views/table/index'), // Parent router-view
+        name: 'Manbing',
+        meta: { title: '慢性病' },
+        children: [
+          {
+            path: 'gaoxueya',
+            name: 'Table',
+            component: () => import('@/views/table/index'),
+            meta: { title: '高血压', icon: 'table' }
+          },
+          {
+            path: 'tangniaobing',
+            name: 'Tree',
+            component: () => import('@/views/tree/index'),
+            meta: { title: '糖尿病', icon: 'tree' }
+          },
+          {
+            path: 'feijiehe',
+            name: 'Tree',
+            component: () => import('@/views/tree/index'),
+            meta: { title: '肺结核', icon: 'tree' }
+          },
+          {
+            path: 'jingshenbing',
+            name: 'Tree',
+            component: () => import('@/views/tree/index'),
+            meta: { title: '精神病', icon: 'tree' }
+          },
+          {
+            path: 'naocuzhong',
+            name: 'Tree',
+            component: () => import('@/views/tree/index'),
+            meta: { title: '脑卒中', icon: 'tree' }
+          },
+          {
+            path: 'guanxinbing',
+            name: 'Tree',
+            component: () => import('@/views/tree/index'),
+            meta: { title: '冠心病', icon: 'tree' }
+          }
+        ]
       },
       {
-        path: 'tangniaobing',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '糖尿病', icon: 'tree' }
+        path: 'gravida',
+        component: () => import('@/views/table/index'), // Parent router-view
+        name: 'Gravida',
+        meta: { title: '孕妇' },
+        children: [
+          {
+            path: '1st',
+            name: 'Table',
+            component: () => import('@/views/table/index'),
+            meta: { title: '第一次', icon: 'table' }
+          },
+          {
+            path: '2nd',
+            name: 'Table',
+            component: () => import('@/views/table/index'),
+            meta: { title: '第二次', icon: 'table' }
+          },
+          {
+            path: '3rd',
+            name: 'Tree',
+            component: () => import('@/views/tree/index'),
+            meta: { title: '第三次', icon: 'tree' }
+          },
+          {
+            path: '4th',
+            name: 'Tree',
+            component: () => import('@/views/tree/index'),
+            meta: { title: '第四次', icon: 'tree' }
+          },
+          {
+            path: '5th',
+            name: 'Tree',
+            component: () => import('@/views/tree/index'),
+            meta: { title: '第五次', icon: 'tree' }
+          },
+          {
+            path: 'after',
+            name: 'Tree',
+            component: () => import('@/views/tree/index'),
+            meta: { title: '产后', icon: 'tree' }
+          },
+          {
+            path: '42d',
+            name: 'Tree',
+            component: () => import('@/views/tree/index'),
+            meta: { title: '产后42天', icon: 'tree' }
+          }
+        ]
       },
       {
-        path: 'feijiehe',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '肺结核', icon: 'tree' }
+        path: 'baby',
+        component: () => import('@/views/table/index'), // Parent router-view
+        name: 'Manbing',
+        meta: { title: '新生儿' },
+        children: [
+          {
+            path: 'family',
+            name: 'Table',
+            component: () => import('@/views/table/index'),
+            meta: { title: '家庭访视', icon: 'table' }
+          },
+          {
+            path: 'month1',
+            name: 'Table',
+            component: () => import('@/views/table/index'),
+            meta: { title: '1月龄', icon: 'table' }
+          },
+          {
+            path: 'month3',
+            name: 'Tree',
+            component: () => import('@/views/tree/index'),
+            meta: { title: '3月龄', icon: 'tree' }
+          },
+          {
+            path: 'month6',
+            name: 'Tree',
+            component: () => import('@/views/tree/index'),
+            meta: { title: '6月龄', icon: 'tree' }
+          },
+          {
+            path: 'month8',
+            name: 'Tree',
+            component: () => import('@/views/tree/index'),
+            meta: { title: '8月龄', icon: 'tree' }
+          },
+          {
+            path: 'month12',
+            name: 'Tree',
+            component: () => import('@/views/tree/index'),
+            meta: { title: '12月龄', icon: 'tree' }
+          },
+          {
+            path: 'month18',
+            name: 'Tree',
+            component: () => import('@/views/tree/index'),
+            meta: { title: '18月龄', icon: 'tree' }
+          },
+          {
+            path: 'month24',
+            name: 'Tree',
+            component: () => import('@/views/tree/index'),
+            meta: { title: '24月龄', icon: 'tree' }
+          },
+          {
+            path: 'month30',
+            name: 'Tree',
+            component: () => import('@/views/tree/index'),
+            meta: { title: '30月龄', icon: 'tree' }
+          },
+          {
+            path: 'year3',
+            name: 'Tree',
+            component: () => import('@/views/tree/index'),
+            meta: { title: '3岁龄', icon: 'tree' }
+          },
+          {
+            path: 'year4',
+            name: 'Tree',
+            component: () => import('@/views/tree/index'),
+            meta: { title: '4岁龄', icon: 'tree' }
+          },
+          {
+            path: 'year5',
+            name: 'Tree',
+            component: () => import('@/views/tree/index'),
+            meta: { title: '5岁龄', icon: 'tree' }
+          },
+          {
+            path: 'year6',
+            name: 'Tree',
+            component: () => import('@/views/tree/index'),
+            meta: { title: '6岁龄', icon: 'tree' }
+          }
+        ]
       },
-      {
-        path: 'jingshenbing',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '精神病', icon: 'tree' }
-      },
-      {
-        path: 'naocuzhong',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '脑卒中', icon: 'tree' }
-      }
     ]
   },
+
 
   {
     path: '/patient',
