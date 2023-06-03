@@ -6,10 +6,10 @@
 
     <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
-        <div class="avatar-wrapper">管理员↓,退出</div>
+        <div class="avatar-wrapper">管理员,退出<i class="el-icon-caret-bottom"></i></div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
           <router-link to="/">
-            <el-dropdown-item>个人信息</el-dropdown-item>
+            <el-dropdown-item>个人设置</el-dropdown-item>
           </router-link>
           <a target="_blank" href="https://github.com/PanJiaChen/vue-admin-template/">
             <el-dropdown-item>修改密码</el-dropdown-item>
