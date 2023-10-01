@@ -12,7 +12,6 @@
       highlight-current-row
     >
       <el-table-column align="center" type="selection" width="60" />
-
       <el-table-column align="center" label="体检类型" width="80" fixed="left">
         <template slot-scope="scope">
           {{ scope.row.type }}
@@ -50,7 +49,7 @@
       </el-table-column>
       <el-table-column align="center" label="所属">
         <template slot-scope="scope">
-          {{ scope.row.region?scope.row.region.name:scope.row.region_name }}
+          {{ scope.row.region.name }}
         </template>
       </el-table-column>
       <el-table-column align="center" width="180" label="证件">
@@ -85,7 +84,7 @@
 </template>
 
 <script>
-import { query } from '@/api/exam'
+import { query } from '@/api/exam_elder'
 
 export default {
   filters: {
@@ -105,10 +104,10 @@ export default {
     }
   },
   created() {
-    this.listData()
+    this.fetchData()
   },
   methods: {
-    listData() {
+    fetchData() {
       this.listLoading = true
       query().then(response => {
         this.list = response.data

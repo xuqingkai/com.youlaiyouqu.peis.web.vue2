@@ -88,7 +88,7 @@
 </template>
 
 <script>
-import { save } from '@/api/exam'
+import { save } from '@/api/exam_elder'
 export default {
   data() {
     return {
@@ -116,7 +116,7 @@ export default {
         if (response.code !== 'SUCCESS') {
           this.$message.error(response.message)
         } else {
-          this.$router.push({ path: '/exam/index' })
+          this.$router.push({ path: '/exam_elder/index' })
         }
         this.listLoading = false
       })

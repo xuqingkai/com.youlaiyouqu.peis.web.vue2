@@ -7,16 +7,16 @@ export function index(params) {
     params
   })
 }
-export function query(query) {
+export function query(params) {
   return request({
-    url: '/exam/query',
+    url: '/exam_elder/query',
     method: 'get',
-    params: query
+    params
   })
 }
 export function save(data) {
   return request({
-    url: '/exam/save',
+    url: '/exam_elder/save',
     method: 'post',
     params: null,
     data: data
