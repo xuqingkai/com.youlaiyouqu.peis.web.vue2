@@ -15,3 +15,10 @@ export function save(data) {
     data: data
   })
 }
+export function read(params) {
+  return request({
+    url: '/elder/read',
+    method: 'get',
+    params: params
+  })
+}

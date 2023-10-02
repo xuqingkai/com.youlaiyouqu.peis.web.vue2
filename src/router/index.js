@@ -49,411 +49,421 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/dashboard',
     children: [{
+      name: 'Dashboard',
+      meta: { title: '首页', icon: 'dashboard' },
       path: 'dashboard',
-      name: 'dashboard',
-      component: () => import('@/views/dashboard/index'),
-      meta: { title: '首页', icon: 'dashboard' }
+      component: () => import('@/views/dashboard/index')
     }]
   },
   {
-    path: '/exam',
-    component: Layout,
-    redirect: '/exam/index',
-    name: 'exam',
+    name: 'Exam',
     meta: { title: '体检管理', icon: 'el-icon-folder' },
+    path: '/exam',
+    redirect: '/exam/index',
+    component: Layout,
     children: [
       {
+        name: 'ExamAdd',
+        meta: { title: '体检登记', icon: 'el-icon-edit-outline' },
         path: 'add',
-        name: 'exam/add',
-        component: () => import('@/views/exam/add'),
-        meta: { title: '体检登记', icon: 'el-icon-edit-outline' }
+        component: () => import('@/views/exam/add')
       },
       {
+        name: 'ExamIndex',
+        meta: { title: '体检记录', icon: 'el-icon-document-copy' },
         path: 'index',
-        name: 'exam/index',
-        component: () => import('@/views/exam/index'),
-        meta: { title: '体检记录', icon: 'el-icon-document-copy' }
+        component: () => import('@/views/exam/index')
       },
       {
+        name: 'ExamElderAdd',
+        meta: { title: '老年人登记', icon: 'el-icon-edit-outline' },
         path: 'elder/add',
-        name: 'exam/elder/add ',
-        component: () => import('@/views/exam/elder/add'),
-        meta: { title: '老年人登记', icon: 'el-icon-edit-outline' }
+        component: () => import('@/views/exam/elder/add')
       },
       {
+        name: 'ExamElderIndex',
+        meta: { title: '老年人体检', icon: 'el-icon-document-copy' },
         path: 'elder/index',
-        name: 'exam/elder/index',
-        component: () => import('@/views/exam/elder/index'),
-        meta: { title: '老年人体检', icon: 'el-icon-document-copy' }
+        component: () => import('@/views/exam/elder/index')
       }
     ]
   },
   {
-    path: '/elder',
-    component: Layout,
-    redirect: '/example/table',
-    name: 'elder',
+    name: 'Elder',
     meta: { title: '老年人查体', icon: 'el-icon-folder' },
+    path: '/elder',
+    redirect: '/elder/tcm',
+    component: Layout,
     children: [
       {
+        name: 'ElderIndex',
+        meta: { title: '健康体检表', icon: 'el-icon-document' },
         path: 'index',
-        name: 'elder/index',
-        component: () => import('@/views/elder/index'),
-        meta: { title: '健康体检表', icon: 'el-icon-document' }
+        component: () => import('@/views/elder/index')
       },
       {
+        name: 'ElderSave',
+        meta: { title: '体检表详情', icon: 'el-icon-document' },
+        path: 'save',
+        component: () => import('@/views/elder/save')
+      },
+      {
+        name: 'ElderTCM',
+        meta: { title: '中医体质辨识', icon: 'el-icon-document' },
         path: 'tcm',
-        name: 'elder/tcm',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '中医体质辨识', icon: 'el-icon-document' }
+        component: () => import('@/views/tree/index')
       },
       {
+        name: 'ElderSelfcare',
+        meta: { title: '自理能力评估', icon: 'el-icon-document' },
         path: 'selfcare',
-        name: 'elder/selfcare',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '自理能力评估', icon: 'el-icon-document' }
+        component: () => import('@/views/tree/index')
       },
       {
+        name: 'ElderCognition',
+        meta: { title: '认知功能筛查', icon: 'el-icon-document' },
         path: 'cognition',
-        name: 'elder/cognition',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '认知功能筛查', icon: 'el-icon-document' }
+        component: () => import('@/views/tree/index')
       },
       {
         path: 'emotion',
-        name: 'elder/emotion',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '情感状态筛查', icon: 'el-icon-document' }
+        name: 'ElderEmotion',
+        meta: { title: '情感状态筛查', icon: 'el-icon-document' },
+        component: () => import('@/views/tree/index')
       }
     ]
   },
   {
-    path: '/manbing',
-    component: () => import('@/views/table/index'), // Parent router-view
-    name: 'manbing',
+    name: 'Chronic',
     meta: { title: '慢性病随访', icon: 'el-icon-folder' },
+    path: '/chronic',
+    component: Layout,
     children: [
       {
+        name: 'ChronicHypertension',
+        meta: { title: '高血压', icon: 'el-icon-document' },
         path: 'hypertension',
-        name: 'manbing/hypertension',
-        component: () => import('@/views/table/index'),
-        meta: { title: '高血压', icon: 'el-icon-document' }
+        component: () => import('@/views/table/index')
       },
       {
+        name: 'ChronicDiabetes',
+        meta: { title: '糖尿病', icon: 'el-icon-document' },
         path: 'diabetes',
-        name: 'manbing/diabetes',
-        component: () => import('@/views/table/index'),
-        meta: { title: '糖尿病', icon: 'el-icon-document' }
+        component: () => import('@/views/table/index')
       },
       {
+        name: 'ChronicPhthisis',
+        meta: { title: '肺结核', icon: 'el-icon-document' },
         path: 'phthisis',
-        name: 'manbing/phthisis',
-        component: () => import('@/views/table/index'),
-        meta: { title: '肺结核', icon: 'el-icon-document' }
+        component: () => import('@/views/table/index')
       },
       {
+        name: 'ChronicPsychosis',
+        meta: { title: '精神病', icon: 'el-icon-document' },
         path: 'psychosis',
-        name: 'manbing/psychosis',
-        component: () => import('@/views/table/index'),
-        meta: { title: '精神病', icon: 'el-icon-document' }
+        component: () => import('@/views/table/index')
       },
       {
+        name: 'ChronicApoplexy',
+        meta: { title: '脑卒中', icon: 'el-icon-document' },
         path: 'apoplexy',
-        name: 'manbing/apoplexy',
-        component: () => import('@/views/table/index'),
-        meta: { title: '脑卒中', icon: 'el-icon-document' }
+        component: () => import('@/views/table/index')
       },
       {
+        name: 'ChronicCoronary',
+        meta: { title: '冠心病', icon: 'el-icon-document' },
         path: 'coronary',
-        name: 'manbing/coronary',
-        component: () => import('@/views/table/index'),
-        meta: { title: '冠心病', icon: 'el-icon-document' }
+        component: () => import('@/views/table/index')
       }
     ]
   },
   {
-    path: '/gravida',
-    component: () => import('@/views/table/index'), // Parent router-view
-    name: 'gravida',
+    name: 'Gravida',
     meta: { title: '孕产妇随访', icon: 'el-icon-folder' },
+    path: '/gravida',
+    hidden: true,
+    component: Layout, // Parent router-view
     children: [
       {
-        path: '1st',
-        name: 'gravida/1st',
-        component: () => import('@/views/table/index'),
-        meta: { title: '第一次', icon: 'el-icon-document' }
+        name: 'GravidaFirst',
+        meta: { title: '第一次', icon: 'el-icon-document' },
+        path: 'first',
+        component: () => import('@/views/table/index')
       },
       {
-        path: '2nd',
-        name: 'gravida/2nd',
-        component: () => import('@/views/table/index'),
-        meta: { title: '第二次', icon: 'el-icon-document' }
+        name: 'GravidaSecond',
+        meta: { title: '第二次', icon: 'el-icon-document' },
+        path: 'second',
+        component: () => import('@/views/table/index')
       },
       {
-        path: '3rd',
-        name: 'gravida/3rd',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '第三次', icon: 'el-icon-document' }
+        name: 'GravidaThird',
+        meta: { title: '第三次', icon: 'el-icon-document' },
+        path: 'third',
+        component: () => import('@/views/tree/index')
       },
       {
-        path: '4th',
-        name: 'gravida/4th',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '第四次', icon: 'el-icon-document' }
+        name: 'GravidaFourth',
+        meta: { title: '第四次', icon: 'el-icon-document' },
+        path: 'fourth',
+        component: () => import('@/views/tree/index')
       },
       {
-        path: '5th',
-        name: 'gravida/5th',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '第五次', icon: 'el-icon-document' }
+        name: 'GravidaFifth',
+        meta: { title: '第五次', icon: 'el-icon-document' },
+        path: 'fifth',
+        component: () => import('@/views/tree/index')
       },
       {
+        name: 'GravidaAfter',
+        meta: { title: '产后', icon: 'el-icon-document' },
         path: 'after',
-        name: 'gravida/after',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '产后', icon: 'el-icon-document' }
+        component: () => import('@/views/tree/index')
       },
       {
-        path: '42d',
-        name: 'gravida/42d',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '产后42天', icon: 'el-icon-document' }
+        name: 'GravidaAfterFortySecondDays',
+        meta: { title: '产后42天', icon: 'el-icon-document' },
+        path: 'after_forty_second_days',
+        component: () => import('@/views/tree/index')
       }
     ]
   },
   {
-    path: '/baby',
-    component: () => import('@/views/table/index'), // Parent router-view
-    name: 'baby',
+    name: 'Baby',
     meta: { title: '新生儿随访', icon: 'el-icon-folder' },
+    path: '/baby',
+    hidden: true,
+    component: () => Layout,
     children: [
       {
-        path: 'family',
-        name: 'baby/family',
-        component: () => import('@/views/table/index'),
-        meta: { title: '家庭访视', icon: 'el-icon-document' }
+        name: 'BabyFamilyVisit',
+        meta: { title: '家庭访视', icon: 'el-icon-document' },
+        path: 'family_visit',
+        component: () => import('@/views/table/index')
       },
       {
-        path: 'month1',
-        name: 'baby/month1',
-        component: () => import('@/views/table/index'),
-        meta: { title: '1月龄', icon: 'el-icon-document' }
+        name: 'BabyOneMonthsOld',
+        meta: { title: '1月龄', icon: 'el-icon-document' },
+        path: 'one_months_old',
+        component: () => import('@/views/table/index')
       },
       {
-        path: 'month3',
-        name: 'baby/month3',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '3月龄', icon: 'el-icon-document' }
+        name: 'BabyThreeMonthsOld',
+        meta: { title: '3月龄', icon: 'el-icon-document' },
+        path: 'three_months_old',
+        component: () => import('@/views/tree/index')
       },
       {
-        path: 'month6',
-        name: 'baby/month6',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '6月龄', icon: 'el-icon-document' }
+        name: 'BabySixMonthsOld',
+        meta: { title: '6月龄', icon: 'el-icon-document' },
+        path: 'six_months_old',
+        component: () => import('@/views/tree/index')
       },
       {
-        path: 'month8',
-        name: 'baby/month8',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '8月龄', icon: 'el-icon-document' }
+        name: 'BabyEightMonthsOld',
+        meta: { title: '8月龄', icon: 'el-icon-document' },
+        path: 'eight_months_old',
+        component: () => import('@/views/tree/index')
       },
       {
-        path: 'month12',
-        name: 'baby/month12',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '12月龄', icon: 'el-icon-document' }
+        name: 'BabyTwelveMonthsOld',
+        meta: { title: '12月龄', icon: 'el-icon-document' },
+        path: 'twelve_months_old',
+        component: () => import('@/views/tree/index')
       },
       {
-        path: 'month18',
-        name: 'baby/month18',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '18月龄', icon: 'el-icon-document' }
+        name: 'BabyEighteenMonthsOld',
+        meta: { title: '18月龄', icon: 'el-icon-document' },
+        path: 'eighteen_months_old',
+        component: () => import('@/views/tree/index')
       },
       {
-        path: 'month24',
-        name: 'baby/month24',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '24月龄', icon: 'el-icon-document' }
+        name: 'BabyTwentyFourMonthsOld',
+        meta: { title: '24月龄', icon: 'el-icon-document' },
+        path: 'twenty_four_months_old',
+        component: () => import('@/views/tree/index')
       },
       {
-        path: 'month30',
-        name: 'baby/month30',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '30月龄', icon: 'el-icon-document' }
+        name: 'BabyThirtyMonthsOld',
+        meta: { title: '30月龄', icon: 'el-icon-document' },
+        path: 'thirty_months_old',
+        component: () => import('@/views/tree/index')
       },
       {
-        path: 'year3',
-        name: 'baby/year3',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '3岁龄', icon: 'el-icon-document' }
+        name: 'BabyThreeYearOld',
+        meta: { title: '3岁龄', icon: 'el-icon-document' },
+        path: 'three_years_old',
+        component: () => import('@/views/tree/index')
       },
       {
-        path: 'year4',
-        name: 'baby/year4',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '4岁龄', icon: 'el-icon-document' }
+        name: 'BabyFourYearOld',
+        meta: { title: '4岁龄', icon: 'el-icon-document' },
+        path: 'four_years_old',
+        component: () => import('@/views/tree/index')
       },
       {
-        path: 'year5',
-        name: 'baby/year5',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '5岁龄', icon: 'el-icon-document' }
+        name: 'BabyFiveYearOld',
+        meta: { title: '5岁龄', icon: 'el-icon-document' },
+        path: 'five_years_old',
+        component: () => import('@/views/tree/index')
       },
       {
-        path: 'year6',
-        name: 'baby/year6',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '6岁龄', icon: 'el-icon-document' }
+        name: 'BabySixYearOld',
+        meta: { title: '6岁龄', icon: 'el-icon-document' },
+        path: 'six_years_old',
+        component: () => import('@/views/tree/index')
       }
     ]
   },
   {
-    path: '/child',
-    name: 'child',
-    component: () => import('@/views/form/index'),
+    name: 'Child',
     meta: { title: '儿童体检', icon: 'el-icon-folder' },
+    path: '/child',
+    hidden: true,
+    component: () => Layout,
     children: [
       {
+        name: 'ChildIndex',
+        meta: { title: '所有记录', icon: 'el-icon-setting' },
         path: 'index',
-        component: () => import('@/views/tree/index'),
-        name: 'child/index',
-        meta: { title: '所有记录', icon: 'el-icon-setting' }
+        component: () => import('@/views/tree/index')
       },
       {
+        name: 'ChildAdd',
+        meta: { title: '信息登记', icon: 'user' },
         path: 'add',
-        component: () => import('@/views/nested/menu2/index'),
-        name: 'child/add',
-        meta: { title: '信息登记', icon: 'user' }
+        component: () => import('@/views/nested/menu2/index')
       }
     ]
   },
   {
-    path: '/occupation',
-    name: 'occupation',
-    component: () => import('@/views/form/index'),
+    name: 'Occupation',
     meta: { title: '职业病体检', icon: 'el-icon-folder' },
+    path: '/occupation',
+    hidden: true,
+    component: () => Layout,
     children: [
       {
+        name: 'OccupationIndex',
+        meta: { title: '所有记录', icon: 'el-icon-setting' },
         path: 'index',
-        component: () => import('@/views/tree/index'),
-        name: 'occupation/index',
-        meta: { title: '所有记录', icon: 'el-icon-setting' }
+        component: () => import('@/views/tree/index')
       },
       {
+        name: 'OccupationAdd',
+        meta: { title: '信息登记', icon: 'user' },
         path: 'add',
-        component: () => import('@/views/nested/menu2/index'),
-        name: 'occupation/add',
-        meta: { title: '信息登记', icon: 'user' }
+        component: () => import('@/views/nested/menu2/index')
       }
     ]
   },
   {
-    path: '/patient',
-    name: 'patient',
-    component: () => import('@/views/form/index'),
+    name: 'Patient',
     meta: { title: '档案管理', icon: 'el-icon-folder' },
+    path: '/patient',
+    component: () => import('@/views/form/index'),
     children: [
       {
+        name: 'PatientIndex',
+        meta: { title: '所有档案', icon: 'el-icon-setting' },
         path: 'index',
-        component: () => import('@/views/tree/index'),
-        name: 'patient/index',
-        meta: { title: '所有档案', icon: 'el-icon-setting' }
+        component: () => import('@/views/tree/index')
       },
       {
+        name: 'PatientAdd',
+        meta: { title: '新建档案', icon: 'user' },
         path: 'add',
-        component: () => import('@/views/nested/menu2/index'),
-        name: 'patient/add',
-        meta: { title: '新建档案', icon: 'user' }
+        component: () => import('@/views/nested/menu2/index')
       },
       {
+        name: 'PatientUpload',
+        meta: { title: '上传档案', icon: 'el-icon-setting' },
         path: 'upload',
-        component: () => import('@/views/nested/menu2/index'),
-        name: 'patient/upload',
-        meta: { title: '上传档案', icon: 'el-icon-setting' }
+        component: () => import('@/views/nested/menu2/index')
       },
       {
+        name: 'PatientSync',
+        meta: { title: '同步档案', icon: 'el-icon-setting' },
         path: 'sync',
-        component: () => import('@/views/nested/menu2/index'),
-        name: 'patient/sync',
-        meta: { title: '同步档案', icon: 'el-icon-setting' }
+        component: () => import('@/views/nested/menu2/index')
       }
     ]
   },
   {
-    path: '/team',
-    name: 'team',
-    component: () => import('@/views/form/index'),
+    name: 'Team',
     meta: { title: '团队管理', icon: 'el-icon-folder' },
+    path: '/team',
+    component: () => Layout,
     children: [
       {
+        name: 'TeamIndex',
+        meta: { title: '所有团队', icon: 'el-icon-setting' },
         path: 'index',
-        component: () => import('@/views/tree/index'),
-        name: 'team/index',
-        meta: { title: '所有团队', icon: 'el-icon-setting' }
+        component: () => import('@/views/tree/index')
       },
       {
+        name: 'TeamAdd',
+        meta: { title: '创建团队', icon: 'user' },
         path: 'add',
-        component: () => import('@/views/nested/menu2/index'),
-        name: 'team/add',
-        meta: { title: '创建团队', icon: 'user' }
+        component: () => import('@/views/nested/menu2/index')
       }
     ]
   },
 
   {
-    path: '/admin',
-    component: Layout,
-    redirect: '/nested/menu1',
-    name: 'admin',
+    name: 'Admin',
     meta: { title: '机构设置', icon: 'el-icon-folder' },
+    path: '/admin',
+    redirect: '/admin/index',
+    component: Layout,
     children: [
       {
+        name: 'Orgs',
+        meta: { title: '所有机构', icon: 'el-icon-setting' },
         path: 'orgs',
-        component: () => import('@/views/nested/menu2/index'),
-        name: 'admin/orgs',
-        meta: { title: '所有机构', icon: 'el-icon-setting' }
+        component: () => import('@/views/nested/menu2/index')
       },
       {
+        name: 'Org',
+        meta: { title: '机构设置', icon: 'el-icon-setting' },
         path: 'org',
-        component: () => import('@/views/nested/menu2/index'),
-        name: 'admin/org',
-        meta: { title: '机构设置', icon: 'el-icon-setting' }
+        component: () => import('@/views/nested/menu2/index')
       },
       {
+        name: 'Office',
+        meta: { title: '科室设置', icon: 'el-icon-setting' },
         path: 'office',
-        component: () => import('@/views/nested/menu2/index'),
-        name: 'admin/office',
-        meta: { title: '科室设置', icon: 'el-icon-setting' }
+        component: () => import('@/views/nested/menu2/index')
       },
       {
+        name: 'User',
+        meta: { title: '用户管理', icon: 'el-icon-setting' },
         path: 'user',
-        component: () => import('@/views/nested/menu2/index'),
-        name: 'admin/user',
-        meta: { title: '用户管理', icon: 'el-icon-setting' }
+        component: () => import('@/views/nested/menu2/index')
       },
       {
+        name: 'ExamType',
+        meta: { title: '体检类型', icon: 'el-icon-setting' },
         path: 'exam_type',
-        component: () => import('@/views/nested/menu2/index'),
-        name: 'admin/exam_type',
-        meta: { title: '体检类型', icon: 'el-icon-setting' }
+        component: () => import('@/views/nested/menu2/index')
       },
       {
+        name: 'Package',
+        meta: { title: '套餐设置', icon: 'el-icon-setting' },
         path: 'package',
-        component: () => import('@/views/nested/menu2/index'),
-        name: 'admin/package',
-        meta: { title: '套餐设置', icon: 'el-icon-setting' }
+        component: () => import('@/views/nested/menu2/index')
       },
       {
+        name: 'Combo',
+        meta: { title: '组合设置', icon: 'el-icon-setting' },
         path: 'combo',
-        component: () => import('@/views/nested/menu2/index'),
-        name: 'admin/combo',
-        meta: { title: '组合设置', icon: 'el-icon-setting' }
+        component: () => import('@/views/nested/menu2/index')
       },
       {
+        name: 'Item',
+        meta: { title: '项目设置', icon: 'el-icon-setting' },
         path: 'item',
-        component: () => import('@/views/nested/menu2/index'),
-        name: 'admin/item',
-        meta: { title: '项目设置', icon: 'el-icon-setting' }
+        component: () => import('@/views/nested/menu2/index')
       }
     ]
   },
@@ -461,34 +471,38 @@ export const constantRoutes = [
     name: 'Setting',
     path: '/setting',
     meta: { title: '系统设置', icon: 'el-icon-folder' },
+    component: Layout,
     children: [
       {
-        path: 'index',
         name: 'SettingIndex',
         meta: { title: '平台设置' },
+        path: 'index',
         component: () => import('@/views/nested/menu1/menu1-1')
       },
       {
         name: 'SettingReport',
-        path: 'report',
         meta: { title: '报表模板' },
+        path: 'report',
         component: () => import('@/views/nested/menu1/menu1-3')
       },
       {
         name: 'SettingDevice',
-        path: 'device',
         meta: { title: '终端管理' },
+        path: 'device',
         component: () => import('@/views/nested/menu1/menu1-3')
       }
     ]
   },
   {
+    name: 'Help',
     path: '/help',
+    meta: { title: '帮助中心', icon: 'el-icon-folder' },
     component: Layout,
     children: [
       {
-        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: { title: '在线帮助', icon: 'link' }
+        name: 'HelpIndex',
+        meta: { title: '在线帮助', icon: 'link' },
+        path: 'https://panjiachen.github.io/vue-element-admin-site/#/'
       }
     ]
   },
