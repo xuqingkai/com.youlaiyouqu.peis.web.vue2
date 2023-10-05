@@ -2,14 +2,14 @@ import request from '@/utils/request'
 
 export function query(query) {
   return request({
-    url: '/elder/query',
+    url: '/diabetes/query',
     method: 'get',
     params: query
   })
 }
 export function save(data, params = null) {
   return request({
-    url: '/elder/save',
+    url: '/diabetes/save',
     method: 'post',
     params: params,
     data: data
@@ -17,7 +17,7 @@ export function save(data, params = null) {
 }
 export function read(params) {
   return request({
-    url: '/elder/read',
+    url: '/diabetes/read',
     method: 'get',
     params: params
   })

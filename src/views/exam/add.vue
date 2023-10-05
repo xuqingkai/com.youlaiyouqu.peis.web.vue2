@@ -52,7 +52,7 @@
     </el-form>
     <el-form ref="form" label-width="120px">
       <el-form-item label="证件号码">
-        <el-input v-model="exam.eidcard_no" />
+        <el-input v-model="exam.idcard_no" />
       </el-form-item>
       <el-form-item label="住址">
         <el-input v-model="exam.idcard_address" />

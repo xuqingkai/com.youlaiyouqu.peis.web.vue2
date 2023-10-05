@@ -52,7 +52,7 @@
     </el-form>
     <el-form ref="form" label-width="120px">
       <el-form-item label="证件号码">
-        <el-input v-model="exam.eidcard_no" />
+        <el-input v-model="exam.idcard_no" />
       </el-form-item>
       <el-form-item label="住址">
         <el-input v-model="exam.idcard_address" />
@@ -76,9 +76,13 @@
           <el-checkbox label="脑卒中" name="type" />
         </el-checkbox-group>
       </el-form-item>
+    </el-form>
+    <el-form ref="form" label-width="120px">
       <el-form-item label="备注信息">
         <el-input v-model="exam.remark" type="textarea" />
       </el-form-item>
+    </el-form>
+    <el-form ref="form" label-width="120px">
       <el-form-item>
         <el-button type="primary" @click="onSubmit">提交</el-button>
         <el-button @click="onCancel">取消</el-button>
@@ -116,7 +120,7 @@ export default {
         if (response.code !== 'SUCCESS') {
           this.$message.error(response.message)
         } else {
-          this.$router.push({ path: '/exam_elder/index' })
+          this.$router.push({ name: 'exam.elder' })
         }
         this.listLoading = false
       })

@@ -49,7 +49,7 @@
       </el-table-column>
       <el-table-column align="center" label="所属">
         <template slot-scope="scope">
-          {{ scope.row.region.name }}
+          {{ scope.row.region ? scope.row.region.name : '' }}
         </template>
       </el-table-column>
       <el-table-column align="center" width="180" label="证件">
