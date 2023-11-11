@@ -1,5 +1,8 @@
 <template>
   <div class="app-container">
+    <el-button-group>
+      <el-button type="primary" @click="saveData('')">新建</el-button>
+    </el-button-group>
     <el-table
       v-loading="listLoading"
       :data="list"
@@ -19,7 +22,7 @@
       </el-table-column>
       <el-table-column align="center" label="姓名">
         <template slot-scope="scope">
-          <span @click="readData(scope.row.hypertension_key)">{{ scope.row.patient.real_name }}</span>
+          <span @click="saveData(scope.row.hypertension_key)">{{ scope.row.patient.real_name }}</span>
         </template>
       </el-table-column>
       <el-table-column align="center" label="性别">
@@ -85,7 +88,7 @@ export default {
         this.listLoading = false
       })
     },
-    readData(key) {
+    saveData(key) {
       this.$message(key)
       this.$router.push({ name: 'hypertension.save', query: { key: key }})
     }

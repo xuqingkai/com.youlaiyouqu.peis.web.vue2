@@ -15,7 +15,7 @@ export default {
     ])
   },
   mounted() {
-    window.swipeIDCard = this._swipeIDCard
+    // window.swipeIDCard = this._swipeIDCard
   },
   methods: {
     swipeIDCard() {

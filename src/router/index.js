@@ -65,12 +65,14 @@ export const constantRoutes = [
         name: 'exam.add',
         meta: { title: '体检登记', icon: 'el-icon-edit-outline' },
         path: 'add',
+        hidden: true,
         component: () => import('@/views/exam/add')
       },
       {
         name: 'exam',
         meta: { title: '体检记录', icon: 'el-icon-document-copy' },
         path: 'index',
+        hidden: true,
         component: () => import('@/views/exam/index')
       },
       {
@@ -150,6 +152,7 @@ export const constantRoutes = [
     name: 'chronic',
     meta: { title: '慢性病随访', icon: 'el-icon-folder' },
     path: '/chronic',
+    redirect: '/chronic/hypertension',
     component: Layout,
     children: [
       {
@@ -182,24 +185,28 @@ export const constantRoutes = [
         name: 'phthisis',
         meta: { title: '肺结核', icon: 'el-icon-document' },
         path: 'phthisis',
+        hidden: true,
         component: () => import('@/views/table/index')
       },
       {
         name: 'psychosis',
         meta: { title: '精神病', icon: 'el-icon-document' },
         path: 'psychosis',
+        hidden: true,
         component: () => import('@/views/table/index')
       },
       {
         name: 'apoplexy',
         meta: { title: '脑卒中', icon: 'el-icon-document' },
         path: 'apoplexy',
+        hidden: true,
         component: () => import('@/views/table/index')
       },
       {
         name: 'coronary',
         meta: { title: '冠心病', icon: 'el-icon-document' },
         path: 'coronary',
+        hidden: true,
         component: () => import('@/views/table/index')
       }
     ]
@@ -259,7 +266,8 @@ export const constantRoutes = [
     name: 'baby',
     meta: { title: '新生儿随访', icon: 'el-icon-folder' },
     path: '/baby',
-    component: () => Layout,
+    hidden: true,
+    component: Layout,
     children: [
       {
         name: 'baby.family',
@@ -345,7 +353,8 @@ export const constantRoutes = [
     name: 'child',
     meta: { title: '儿童体检', icon: 'el-icon-folder' },
     path: '/child',
-    component: () => Layout,
+    hidden: true,
+    component: Layout,
     children: [
       {
         name: 'child.index',
@@ -365,7 +374,8 @@ export const constantRoutes = [
     name: 'occupation',
     meta: { title: '职业病体检', icon: 'el-icon-folder' },
     path: '/occupation',
-    component: () => Layout,
+    hidden: true,
+    component: Layout,
     children: [
       {
         name: 'occupation.index',
@@ -385,7 +395,8 @@ export const constantRoutes = [
     name: 'student',
     meta: { title: '学生体检', icon: 'el-icon-folder' },
     path: '/student',
-    component: () => Layout,
+    hidden: true,
+    component: Layout,
     children: [
       {
         name: 'student.index',
@@ -405,19 +416,26 @@ export const constantRoutes = [
     name: 'patient',
     meta: { title: '档案管理', icon: 'el-icon-folder' },
     path: '/patient',
-    component: () => import('@/views/form/index'),
+    component: Layout,
     children: [
       {
-        name: 'patient.index',
+        name: 'patient.all',
         meta: { title: '所有档案', icon: 'el-icon-setting' },
         path: 'index',
-        component: () => import('@/views/tree/index')
+        hidden: true,
+        component: () => import('@/views/patient/index')
+      },
+      {
+        name: 'patient.elder',
+        meta: { title: '老年人档案', icon: 'el-icon-setting' },
+        path: 'elder',
+        component: () => import('@/views/patient/elder/index')
       },
       {
         name: 'patient.add',
         meta: { title: '新建档案', icon: 'user' },
         path: 'add',
-        component: () => import('@/views/nested/menu2/index')
+        component: () => import('@/views/patient/add')
       },
       {
         name: 'patient.upload',
@@ -437,7 +455,7 @@ export const constantRoutes = [
     name: 'team',
     meta: { title: '团队管理', icon: 'el-icon-folder' },
     path: '/team',
-    component: () => Layout,
+    component: Layout,
     children: [
       {
         name: 'team.index',
@@ -527,7 +545,7 @@ export const constantRoutes = [
   {
     name: 'setting',
     meta: { title: '系统设置', icon: 'el-icon-folder' },
-    path: '/setting/index',
+    path: '/setting',
     component: Layout,
     children: [
       {

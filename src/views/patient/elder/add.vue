@@ -19,7 +19,10 @@
       </el-form-item>
       <el-form-item label="所属">
         <el-select v-model="exam.region" placeholder="请选择">
-          <el-option v-for="item in regions" :key="item.code" :label="item.name" :value="item.code" />
+          <el-option label="张家村" value="zhang" />
+          <el-option label="王家庄" value="wang" />
+          <el-option label="李家洼" value="li" />
+          <el-option label="赵家屯" value="zhao" />
         </el-select>
       </el-form-item>
     </el-form>
@@ -70,12 +73,12 @@
     </el-form>
     <el-form ref="form" label-width="120px">
       <el-form-item label="慢病管理">
-        <el-checkbox-group v-model="exam.patient.chronic_disease">
-          <el-checkbox label="hypertension" name="type">高血压</el-checkbox>
-          <el-checkbox label="diabetes" name="type">糖尿病</el-checkbox>
-          <el-checkbox label="phthisis" name="type">肺结核</el-checkbox>
-          <el-checkbox label="psychosis" name="type">精神病</el-checkbox>
-          <el-checkbox label="apoplexy" name="type">脑卒中</el-checkbox>
+        <el-checkbox-group v-model="exam.manbing">
+          <el-checkbox label="高血压" name="type" />
+          <el-checkbox label="糖尿病" name="type" />
+          <el-checkbox label="肺结核" name="type" />
+          <el-checkbox label="精神病" name="type" />
+          <el-checkbox label="脑卒中" name="type" />
         </el-checkbox-group>
       </el-form-item>
     </el-form>
@@ -95,17 +98,15 @@
 
 <script>
 import { save } from '@/api/exam_elder'
-import { subsets as subsets1 } from '@/api/region'
 import { parseTime } from '@/utils'
 export default {
   data() {
     return {
-      regions: [],
       exam: {
         type: 'elder',
         package: 'elder',
         real_name: '',
-        region: '',
+        region: 'li',
         gender: '女',
         ethno: 'menggu',
         birthday: '',
@@ -115,25 +116,13 @@ export default {
         idcard_sn: '',
         mobiphone: '',
         telephone: '',
-        patient: {
-          chronic_disease: ['hypertension']
-        },
+        manbing: ['高血压'],
         remark: ''
       }
     }
   },
   mounted() {
     window.swipeIDCard = this._swipeIDCard
-    subsets1({
-      code: '370831001'
-    }).then(response => {
-      if (response.code !== 'SUCCESS') {
-        this.$message.error(response.message)
-      } else {
-        this.$data.regions = response.data
-      }
-      this.listLoading = false
-    })
   },
   methods: {
     swipeIDCard() {
@@ -154,7 +143,6 @@ export default {
       })
     },
     onCancel() {
-      alert(this.$data.exam.manbing)
       this.$message({
         message: 'cancel!',
         type: 'warning'

@@ -1,5 +1,8 @@
 <template>
   <div class="app-container">
+    <el-button-group>
+      <el-button type="primary" @click="saveData('')">新建</el-button>
+    </el-button-group>
     <el-table
       v-loading="listLoading"
       :data="list"
@@ -14,7 +17,7 @@
       <el-table-column align="center" type="selection" width="60" />
       <el-table-column align="center" label="体检号">
         <template slot-scope="scope">
-          <span @click="readData(scope.row.elder_key)">{{ scope.row.exam_no }}</span>
+          <span @click="saveData(scope.row.elder_key)">{{ scope.row.exam_no }}</span>
         </template>
       </el-table-column>
       <el-table-column align="center" label="姓名">
@@ -39,7 +42,7 @@
       </el-table-column>
       <el-table-column align="center" width="120" label="所属">
         <template slot-scope="scope">
-          {{ scope.row.region.name }}
+          {{ scope.row.region?scope.row.region.name:'' }}
         </template>
       </el-table-column>
       <el-table-column align="center" width="180" label="证件">
@@ -49,7 +52,7 @@
       </el-table-column>
       <el-table-column align="center" width="180" label="慢病">
         <template slot-scope="scope">
-          {{ scope.row.region?scope.row.region.name:'' }}
+          {{ scope.row.chronic_disease }}
         </template>
       </el-table-column>
       <el-table-column label="体检" align="center">
@@ -124,7 +127,7 @@ export default {
         this.listLoading = false
       })
     },
-    readData(key) {
+    saveData(key) {
       this.$message(key)
       this.$router.push({ name: 'elder.save', query: { key: key }})
     }

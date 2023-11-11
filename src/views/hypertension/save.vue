@@ -6,23 +6,15 @@
     <table style="width: 100%;border:none;">
       <tr>
         <td>姓名：<el-input v-model="detail.patient_name" size="small" style="width: 120px" /></td>
-        <td>
-          编号：
-          <el-input v-model="followup_visit_no[0]" size="mini" style="width: 30px" />
-          <el-input v-model="followup_visit_no[1]" size="mini" style="width: 30px" />
-          <el-input v-model="followup_visit_no[2]" size="mini" style="width: 30px" />
-          <el-input v-model="followup_visit_no[3]" size="mini" style="width: 30px" />
-          <el-input v-model="followup_visit_no[4]" size="mini" style="width: 30px" />
-          <el-input v-model="followup_visit_no[5]" size="mini" style="width: 30px" />
-          <el-input v-model="followup_visit_no[6]" size="mini" style="width: 30px" />
-          <el-input v-model="followup_visit_no[7]" size="mini" style="width: 30px" />
+        <td style="text-align: right;">
+          编号：<el-input v-model="detail.patientElder.archive_no" size="mini" style="width: 150px" />
         </td>
       </tr>
     </table>
     <table>
       <tr>
         <th colspan="2">随访日期</th>
-        <td colspan="5"><el-input v-model="detail.followup_visit_date" size="mini" style="width: 80px" /></td>
+        <td colspan="5"><el-date-picker v-model="detail.followup_visit_date" type="date" size="mini" style="width: 180px" /></td>
       </tr>
       <tr>
         <th colspan="2">随访方式</th>
@@ -229,7 +221,7 @@
       </tr>
       <tr>
         <th colspan="2">下次随访日期</th>
-        <td colspan="5"><el-input v-model="detail.next_visit_date" size="mini" style=" width: 150px" /></td>
+        <td colspan="5"><el-date-picker v-model="detail.next_visit_date" type="date" size="mini" style="width: 150px" /></td>
       </tr>
       <tr>
         <th colspan="2">随访医生签名</th>
@@ -244,19 +236,19 @@
 <style>
   .el-row {
     border: 1px solid #EBEEF5;
-      border-bottom: none;
-      border-right: none;
-    &:last-child {
-      border-bottom: 1px solid #EBEEF5;
-      border-right: 1px solid #EBEEF5;
-    }
+    border-bottom: none;
+    border-right: none;
+  }
+  .el-row:last-child {
+    border-bottom: 1px solid #EBEEF5;
+    border-right: 1px solid #EBEEF5;
   }
   .el-col {
     border-right: 1px solid #EBEEF5;
     padding: 5px;
-    &:last-child {
-      border-right: none;
-    }
+  }
+  .el-col:last-child {
+    border-right: none;
   }
   table{
     width: 100%;
@@ -317,7 +309,10 @@ export default {
     return {
       detail: {
         symptom: [],
-        drug_history: []
+        drug_history: [],
+        patientElder: {
+          archive_no: ''
+        }
       },
       loading: true
     }
@@ -335,7 +330,7 @@ export default {
       this.loading = true
       var query = this.$route.query
       read({ key: query.key }).then(response => {
-        this.detail = response.data
+        if (response.data) { this.detail = response.data }
         this.loading = false
       })
     },

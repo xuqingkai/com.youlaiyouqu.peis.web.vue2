@@ -1,149 +1,142 @@
 <template>
   <div class="app-container">
-    <div style="text-align: center;">
-      <strong>健康体检表</strong>
-    </div>
-    <table style="width: 100%;border:none;">
-      <tr>
-        <td>姓名：<el-input v-model="elder.patient_name" size="small" style="width: 120px" /></td>
-        <td align="right">
-          编号：
-          <el-input v-model="elder.patientElder.archive_no" style="width: 180px" />
-        </td>
-      </tr>
-    </table>
-    <table style="width: 100%">
-      <tr>
-        <th colspan="2">体检日期</th>
-        <td>
-          <el-date-picker v-model="elder.exam_date" type="date" />
-        </td>
-        <th>责任医生</th>
-        <td colspan="2">
-          <el-input v-model="elder.doctor_name" style="width: 100px" />
-        </td>
-      </tr>
-    </table>
+    <el-tabs>
+      <el-tab-pane label="基本情况">
+        <el-form :inline="true" label-width="120px">
+          <el-form-item label="真实姓名">
+            <el-input v-model="elder.patient_name" />
+          </el-form-item>
+          <el-form-item label="档案编号">
+            <el-input v-model="elder.patientElder.archive_no" />
+          </el-form-item>
+          <el-form-item label="体检日期">
+            <el-date-picker v-model="elder.exam_date" type="date" style="width:180px" />
+          </el-form-item>
+          <el-form-item label="责任医生">
+            <el-input v-model="elder.doctor_name" style="width: 100px" />
+          </el-form-item>
+        </el-form>
+        <el-form label-width="120px">
+          <el-form-item label="症状">
+            <el-checkbox-group v-model="elder.symptom">
+              <el-checkbox label="1.无症状" />
+              <el-checkbox label="2.头痛" />
+              <el-checkbox label="3.头晕" />
+              <el-checkbox label="4.心悸" />
+              <el-checkbox label="5.胸闷" />
+              <el-checkbox label="6.胸痛" />
+              <el-checkbox label="7.慢性咳嗽" />
+              <el-checkbox label="8.咳痰" />
+              <el-checkbox label="9.呼吸困难" />
+              <el-checkbox label="10.多饮" />
+              <el-checkbox label="11.多尿" />
+              <el-checkbox label="12.体重下降" />
+              <el-checkbox label="13.乏力" />
+              <el-checkbox label="14.关节肿痛" />
+              <el-checkbox label="15.视力模糊" />
+              <el-checkbox label="16.手脚麻木" />
+              <el-checkbox label="17.尿急" />
+              <el-checkbox label="18.尿痛" />
+              <el-checkbox label="19.便秘" />
+              <el-checkbox label="20.腹泻" />
+              <el-checkbox label="21.恶心呕吐" />
+              <el-checkbox label="22.眼花" />
+              <el-checkbox label="23.耳鸣" />
+              <el-checkbox label="24.乳房胀痛" />
+              <el-checkbox label="25.其他" />
+            </el-checkbox-group>
+          </el-form-item>
+          <el-form-item label="其他症状">
+            <el-input v-model="elder.symptom_other" size="mini" />
+          </el-form-item>
+        </el-form>
+        <el-form label-width="120px">
+          <el-form-item label="医生签名">
+            <img src="/static/images/doctor_sign.png">
+          </el-form-item>
+        </el-form>
+      </el-tab-pane>
+      <el-tab-pane label="一般状况">
+        <el-form :inline="true" label-width="120px">
+          <el-form-item label="体温">
+            <el-input v-model="elder.body_temperature" size="mini" style="width: 80px" />℃
+          </el-form-item>
+          <el-form-item label="脉率">
+            <el-input v-model="elder.heart_pr" size="mini" style="width: 50px" />次/分钟
+          </el-form-item>
+          <el-form-item label="呼吸频率">
+            <el-input v-model="elder.lung_rr" size="mini" style="width: 50px" />次/分钟
+          </el-form-item>
+        </el-form>
+        <el-form :inline="true" label-width="120px">
+          <el-form-item label="身高">
+            <el-input v-model="elder.body_height" size="mini" style="width: 50px" />CM
+          </el-form-item>
+          <el-form-item label="体重">
+            <el-input v-model="elder.body_weight" size="mini" style="width: 50px" />KG
+          </el-form-item>
+          <el-form-item label="体质指数">
+            <el-input v-model="elder.body_waistline" size="mini" style="width: 50px" />kg/㎡
+          </el-form-item>
+          <el-form-item label="腰围">
+            <el-input v-model="elder.body_waistline" size="mini" style="width: 50px" />CM
+          </el-form-item>
+        </el-form>
+        <el-form :inline="true" label-width="120px">
+          <el-form-item label="左侧血压">
+            <el-input v-model="elder.left_sbp" size="mini" style="width: 50px" />/
+            <el-input v-model="elder.left_dbp" size="mini" style="width: 50px" />mmHg
+          </el-form-item>
+          <el-form-item label="右侧血压">
+            <el-input v-model="elder.right_sbp" size="mini" style="width: 50px" />/
+            <el-input v-model="elder.right_dbp" size="mini" style="width: 50px" />mmHg
+          </el-form-item>
+        </el-form>
+        <el-form>
+          <el-form-item label="老年人健康状态自我评估*">
+            <el-radio-group v-model="elder.health_status">
+              <el-radio label="1.满意" />
+              <el-radio label="2.基本满意" />
+              <el-radio label="3.说不清楚" />
+              <el-radio label="4.不太满意" />
+              <el-radio label="5.不满意" />
+            </el-radio-group>
+          </el-form-item>
+          <el-form-item label="老年人生活自理能力自我评估*">
+            <el-radio-group v-model="elder.selfcare">
+              <el-radio label="1.可自理（0～3分）" />
+              <el-radio label="2.轻度依赖（4～8分）" />
+              <el-radio label="3.中度依赖（9～18分)" />
+              <el-radio label="4.不能自理（≥19分）" />
+            </el-radio-group>
+          </el-form-item>
+          <el-form-item label="老年人认知功能*">
+            <el-radio-group v-model="elder.cognition">
+              <el-radio label="1.粗筛阴性" />
+              <el-radio label="2.粗筛阳性" />
+            </el-radio-group>
+            ，简易智力状态检查，总分<el-input v-model="elder.cognition_score" size="mini" style="margin-left:10px; width: 50px" />
+          </el-form-item>
+          <el-form-item label="老年人情感状态*">
+            <el-radio-group v-model="elder.affection">
+              <el-radio label="1.粗筛阴性" />
+              <el-radio label="2.粗筛阳性" />
+            </el-radio-group>
+            ，老年人抑郁评分检查，总分<el-input v-model="elder.affection_score" size="mini" style="margin-left:10px; width: 50px" />
+          </el-form-item>
+        </el-form>
+      </el-tab-pane>
+      <el-tab-pane label="老年人健康">状态自我评估
+      </el-tab-pane>
+      <el-tab-pane label="定时任务补偿">定时任务补偿</el-tab-pane>
+    </el-tabs>
     <table class="table" style="width: 100%; border: 1px solid #f00;">
       <tr>
         <th>内容</th>
         <th colspan="6">检查项目</th>
         <th>医师签名</th>
       </tr>
-      <tr>
-        <th>症<br>状</th>
-        <td colspan="6">
-          <el-checkbox-group v-model="elder.symptom">
-            <el-checkbox label="1.无症状" />
-            <el-checkbox label="2.头痛" />
-            <el-checkbox label="3.头晕" />
-            <el-checkbox label="4.心悸" />
-            <el-checkbox label="5.胸闷" />
-            <el-checkbox label="6.胸痛" />
-            <el-checkbox label="7.慢性咳嗽" />
-            <el-checkbox label="8.咳痰" />
-            <el-checkbox label="9.呼吸困难" />
-            <el-checkbox label="10.多饮" />
-            <el-checkbox label="11.多尿" />
-            <el-checkbox label="12.体重下降" />
-            <el-checkbox label="13.乏力" />
-            <el-checkbox label="14.关节肿痛" />
-            <el-checkbox label="15.视力模糊" />
-            <el-checkbox label="16.手脚麻木" />
-            <el-checkbox label="17.尿急" />
-            <el-checkbox label="18.尿痛" />
-            <el-checkbox label="19.便秘" />
-            <el-checkbox label="20.腹泻" />
-            <el-checkbox label="21.恶心呕吐" />
-            <el-checkbox label="22.眼花" />
-            <el-checkbox label="23.耳鸣" />
-            <el-checkbox label="24.乳房胀痛" />
-            <el-checkbox label="25.其他" />
-          </el-checkbox-group>
-          <el-input v-model="elder.symptom_other" size="mini" style="margin-left:10px; width: 120px" />
-        </td>
-        <td><img src="/static/images/doctor_sign.png"></td>
-      </tr>
-      <tr>
-        <th rowspan="9">一<br>般<br>状<br>况</th>
-        <th colspan="2">体温</th>
-        <td><el-input v-model="elder.body_temperature" size="mini" style="width: 80px" />℃</td>
-        <th>脉率</th>
-        <td colspan="2"><el-input v-model="elder.heart_pr" size="mini" style="width: 50px" />次/分钟</td>
-        <td rowspan="9"><img src="/static/images/doctor_sign.png"></td>
-      </tr>
-      <tr>
-        <th rowspan="2" colspan="2">呼吸频率</th>
-        <td rowspan="2"><el-input v-model="elder.lung_rr" size="mini" style="width: 50px" />次/分钟</td>
-        <th rowspan="2">血压</th>
-        <td>左侧</td>
-        <td>
-          <el-input v-model="elder.left_sbp" size="mini" style="width: 50px" />/
-          <el-input v-model="elder.left_dbp" size="mini" style="width: 50px" />mmHg
-        </td>
-      </tr>
-      <tr>
-        <td>右侧</td>
-        <td>
-          <el-input v-model="elder.right_sbp" size="mini" style="width: 50px" />/
-          <el-input v-model="elder.right_dbp" size="mini" style="width: 50px" />mmHg
-        </td>
-      </tr>
-      <tr>
-        <th colspan="2">身高</th>
-        <td><el-input v-model="elder.body_height" size="mini" style="width: 50px" />CM</td>
-        <th>体重</th>
-        <td colspan="2"><el-input v-model="elder.body_weight" size="mini" style="width: 50px" />KG</td>
-      </tr>
-      <tr>
-        <th colspan="2">腰围</th>
-        <td><el-input v-model="elder.body_waistline" size="mini" style="width: 50px" />CM</td>
-        <th>体质指数（BMI）</th>
-        <td colspan="2"><el-input v-model="elder.body_waistline" size="mini" style="width: 50px" />kg/㎡</td>
-      </tr>
-      <tr>
-        <th colspan="2">老年人健康状态自我评估*</th>
-        <td colspan="4">
-          <el-radio-group v-model="elder.health_status">
-            <el-radio label="1.满意" />
-            <el-radio label="2.基本满意" />
-            <el-radio label="3.说不清楚" />
-            <el-radio label="4.不太满意" />
-            <el-radio label="5.不满意" />
-          </el-radio-group>
-        </td>
-      </tr>
-      <tr>
-        <th colspan="2">老年人生活自理能力自我评估*</th>
-        <td colspan="4">
-          <el-radio-group v-model="elder.selfcare">
-            <el-radio label="1.可自理（0～3分）" />
-            <el-radio label="2.轻度依赖（4～8分）" />
-            <el-radio label="3.中度依赖（9～18分)" />
-            <el-radio label="4.不能自理（≥19分）" />
-          </el-radio-group>
-        </td>
-      </tr>
-      <tr>
-        <th colspan="2">老年人认知功能*</th>
-        <td colspan="4">
-          <el-radio-group v-model="elder.cognition">
-            <el-radio label="1.粗筛阴性" />
-            <el-radio label="2.粗筛阳性" />
-          </el-radio-group>
-          ，简易智力状态检查，总分<el-input v-model="elder.cognition_score" size="mini" style="margin-left:10px; width: 50px" />
-        </td>
-      </tr>
-      <tr>
-        <th colspan="2">老年人情感状态*</th>
-        <td colspan="4">
-          <el-radio-group v-model="elder.affection">
-            <el-radio label="1.粗筛阴性" />
-            <el-radio label="2.粗筛阳性" />
-          </el-radio-group>
-          ，老年人抑郁评分检查，总分<el-input v-model="elder.affection_score" size="mini" style="margin-left:10px; width: 50px" />
-        </td>
-      </tr>
+
       <tr>
         <th rowspan="5">生<br>活<br>方<br>式</th>
         <th colspan="2">体育锻炼</th>
@@ -1254,10 +1247,7 @@ export default {
         drug_history: [],
         vaccinate_history: [],
         health_evaluation_abnormal: [],
-        dangerous_factor_control: [],
-        patientElder: {
-          archive_no: ''
-        }
+        dangerous_factor_control: []
       },
       listLoading: true
     }

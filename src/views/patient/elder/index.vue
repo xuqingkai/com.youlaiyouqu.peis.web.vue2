@@ -15,50 +15,59 @@
       highlight-current-row
     >
       <el-table-column align="center" type="selection" width="60" />
-      <el-table-column align="center" label="体检号">
-        <template slot-scope="scope">
-          {{ scope.row.exam ? scope.row.exam.exam_no : '' }}
-        </template>
-      </el-table-column>
       <el-table-column align="center" label="姓名">
         <template slot-scope="scope">
-          <span @click="saveData(scope.row.diabetes_key)">{{ scope.row.patient.real_name }}</span>
+          {{ scope.row.real_name }}
         </template>
       </el-table-column>
       <el-table-column align="center" label="性别">
         <template slot-scope="scope">
-          {{ scope.row.patient.gender }}
+          {{ scope.row.gender }}
         </template>
       </el-table-column>
       <el-table-column align="center" label="年龄">
         <template slot-scope="scope">
-          {{ scope.row.exam ? scope.row.exam.age : '' }}
+          {{ scope.row.age }}
         </template>
       </el-table-column>
-      <el-table-column align="center" label="生日">
+      <el-table-column align="center" width="100" label="生日">
         <template slot-scope="scope">
-          {{ scope.row.patient.birthday }}
+          {{ scope.row.birthday }}
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="所属">
+        <template slot-scope="scope">
+          {{ scope.row.region ? scope.row.region.address : '' }}
         </template>
       </el-table-column>
       <el-table-column align="center" width="180" label="证件">
         <template slot-scope="scope">
-          {{ scope.row.patient.idcard_no }}
+          {{ scope.row.idcard_no }}
         </template>
       </el-table-column>
-      <el-table-column align="center" prop="created_at" label="随访日期" width="200">
+      <el-table-column label="详情" width="55" type="expand">
         <template slot-scope="scope">
-          {{ scope.row.followup_visit_date }}
+          <el-form label-position="left" inline>
+            <el-form-item label="身高体重">{{ scope.$index }}</el-form-item>
+            <el-form-item label="血压">√</el-form-item>
+            <el-form-item label="中医体质辨识">√</el-form-item>
+            <el-form-item label="自理能力评估">√</el-form-item>
+            <el-form-item label="认知功能评估">√</el-form-item>
+            <el-form-item label="情感状态评估">√</el-form-item>
+            <el-form-item label="心电">√</el-form-item>
+            <el-form-item label="B超">√</el-form-item>
+            <el-form-item label="尿常规">√</el-form-item>
+            <el-form-item label="血常规">√</el-form-item>
+            <el-form-item label="血生化">√</el-form-item>
+          </el-form>
         </template>
-      </el-table-column>
-      <el-table-column label="结果" width="55">
-        <template slot-scope="scope">{{ scope.row.followup_visit_result }}</template>
       </el-table-column>
     </el-table>
   </div>
 </template>
 
 <script>
-import { query } from '@/api/diabetes'
+import { query } from '@/api/patient.elder'
 
 export default {
   filters: {
@@ -78,19 +87,15 @@ export default {
     }
   },
   created() {
-    this.listData()
+    this.fetchData()
   },
   methods: {
-    listData() {
+    fetchData() {
       this.listLoading = true
       query().then(response => {
         this.list = response.data
         this.listLoading = false
       })
-    },
-    saveData(key) {
-      this.$message(key)
-      this.$router.push({ name: 'diabetes.save', query: { key: key }})
     }
   }
 }
