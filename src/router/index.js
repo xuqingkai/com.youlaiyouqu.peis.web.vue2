@@ -478,6 +478,19 @@ export const constantRoutes = [
     component: Layout,
     children: [
       {
+        name: 'region.index',
+        meta: { title: '辖内属地', icon: 'el-icon-setting' },
+        path: 'region',
+        component: () => import('@/views/region/index')
+      },
+      {
+        name: 'region.save',
+        meta: { title: '所属地设置', icon: 'el-icon-setting' },
+        path: 'region/save',
+        hidden: true,
+        component: () => import('@/views/nested/menu2/index')
+      },
+      {
         name: 'org.index',
         meta: { title: '所有机构', icon: 'el-icon-setting' },
         path: 'orgs',

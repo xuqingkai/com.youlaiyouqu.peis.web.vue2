@@ -18,8 +18,11 @@
         <el-input v-model="exam.real_name" />
       </el-form-item>
       <el-form-item label="所属">
-        <el-select v-model="exam.region" placeholder="请选择" @change="region_change">
-          <el-option v-for="item in regions" :key="item.code" :label="item.name" :value="item.code" />
+        <el-select v-model="exam.region" placeholder="请选择">
+          <el-option label="张家村" value="zhang" />
+          <el-option label="王家庄" value="wang" />
+          <el-option label="李家洼" value="li" />
+          <el-option label="赵家屯" value="zhao" />
         </el-select>
       </el-form-item>
     </el-form>
@@ -51,8 +54,13 @@
       <el-form-item label="证件号码">
         <el-input v-model="exam.idcard_no" />
       </el-form-item>
-      <el-form-item label="户籍住址">
+      <el-form-item label="户籍地址">
         <el-input v-model="exam.idcard_address" />
+      </el-form-item>
+    </el-form>
+    <el-form ref="form" label-width="120px">
+      <el-form-item label="现居地址">
+        <el-input v-model="exam.address" />
       </el-form-item>
     </el-form>
     <el-form ref="form" :inline="true" label-width="120px">
@@ -64,34 +72,18 @@
       </el-form-item>
     </el-form>
     <el-form ref="form" label-width="120px">
-      <el-form-item label="现居住址">
-        <el-input v-model="exam.address" />
-      </el-form-item>
-    </el-form>
-    <el-form ref="form" label-width="120px">
       <el-form-item label="慢病管理">
-        <el-checkbox-group v-model="exam.patient.chronic_disease">
-          <el-checkbox label="hypertension" name="type">高血压</el-checkbox>
-          <el-checkbox label="diabetes" name="type">糖尿病</el-checkbox>
-          <el-checkbox label="phthisis" name="type">肺结核</el-checkbox>
-          <el-checkbox label="psychosis" name="type">精神病</el-checkbox>
-          <el-checkbox label="apoplexy" name="type">脑卒中</el-checkbox>
+        <el-checkbox-group v-model="exam.manbing">
+          <el-checkbox label="高血压" name="type" />
+          <el-checkbox label="糖尿病" name="type" />
+          <el-checkbox label="肺结核" name="type" />
+          <el-checkbox label="精神病" name="type" />
+          <el-checkbox label="脑卒中" name="type" />
         </el-checkbox-group>
       </el-form-item>
-    </el-form>
-    <el-form ref="form" label-width="120px">
-      <el-form-item label="责任医生">
-        <el-radio-group v-model="exam.user_key">
-          <el-radio v-for="item in doctors" :key="item.id" :label="item.user_key">{{ item.real_name }}</el-radio>
-        </el-radio-group>
-      </el-form-item>
-    </el-form>
-    <el-form ref="form" label-width="120px">
       <el-form-item label="备注信息">
         <el-input v-model="exam.remark" type="textarea" />
       </el-form-item>
-    </el-form>
-    <el-form ref="form" label-width="120px">
       <el-form-item>
         <el-button type="primary" @click="onSubmit">提交</el-button>
         <el-button @click="onCancel">取消</el-button>
@@ -101,48 +93,31 @@
 </template>
 
 <script>
-import { save } from '@/api/exam_elder'
-import { subsets as subsets1, doctor } from '@/api/region'
+import { save } from '@/api/exam'
 import { parseTime } from '@/utils'
 export default {
   data() {
     return {
-      regions: [],
-      doctors: [],
       exam: {
-        type: 'elder',
+        type: 'health',
         package: 'elder',
-        real_name: '',
+        name: '',
         region: '',
-        gender: '女',
-        ethno: 'menggu',
+        gender: '男',
+        ethno: '',
         birthday: '',
         age: '',
         idcard_no: '',
         idcard_address: '',
-        idcard_sn: '',
         mobiphone: '',
         telephone: '',
-        patient: {
-          chronic_disease: ['hypertension']
-        },
-        user_key: '',
+        manbing: ['高血压'],
         remark: ''
       }
     }
   },
   mounted() {
     window.swipeIDCard = this._swipeIDCard
-    subsets1({
-      code: '370831001'
-    }).then(response => {
-      if (response.code !== 'SUCCESS') {
-        this.$message.error(response.message)
-      } else {
-        this.$data.regions = response.data
-      }
-      this.listLoading = false
-    })
   },
   methods: {
     swipeIDCard() {
@@ -152,35 +127,17 @@ export default {
       this.$data.exam = Object.assign({}, this.$data.exam, JSON.parse(str))
       return '{"id":0,"code":"SUCCESS","message":"调取成功","data":' + str + ',"datetime":"' + parseTime(new Date(), '{m}-{d} {h}:{i}:{s}') + '"}'
     },
-    region_change() {
-      doctor({
-        code: this.$data.exam.region
-      }).then(response => {
-        if (response.code !== 'SUCCESS') {
-          this.$message.error(response.message)
-        } else {
-          this.$data.doctors = response.data.doctors
-          if (this.$data.doctors.length > 0) {
-            this.$data.exam.user_key = this.$data.doctors[0].user_key
-          } else {
-            this.$data.exam.user_key = ''
-          }
-        }
-        this.listLoading = false
-      })
-    },
     onSubmit() {
       save(this.exam).then(response => {
         if (response.code !== 'SUCCESS') {
           this.$message.error(response.message)
         } else {
-          this.$router.push({ name: 'exam.elder' })
+          this.$router.push({ path: '/exam/index' })
         }
         this.listLoading = false
       })
     },
     onCancel() {
-      alert(this.$data.exam.manbing)
       this.$message({
         message: 'cancel!',
         type: 'warning'
