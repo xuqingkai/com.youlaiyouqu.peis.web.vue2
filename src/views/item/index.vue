@@ -1,5 +1,8 @@
 <template>
   <div class="app-container">
+    <el-button-group>
+      <el-button type="primary" @click="showData('')">新建</el-button>
+    </el-button-group>
     <el-table
       v-loading="listLoading"
       :data="list"
@@ -12,12 +15,12 @@
       highlight-current-row
     >
       <el-table-column align="center" type="selection" width="60" />
-      <el-table-column align="center" label="标识">
+      <el-table-column align="center" label="代码">
         <template slot-scope="scope">
-          <span @click="readData(scope.row.item_key)">{{ scope.row.item_key }}</span>
+          <span @click="showData(scope.row.item_key)">{{ scope.row.item_key }}</span>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="代码">
+      <el-table-column align="center" label="英文名">
         <template slot-scope="scope">
           {{ scope.row.code }}
         </template>
@@ -29,7 +32,7 @@
       </el-table-column>
       <el-table-column align="center" label="简称">
         <template slot-scope="scope">
-          {{ scope.row.abbr_name }}
+          {{ scope.row.alias_name }}
         </template>
       </el-table-column>
       <el-table-column align="center" label="单位">
@@ -50,12 +53,21 @@
       <el-table-column label="备注" width="55">
         <template slot-scope="scope">{{ scope.row.remark }}</template>
       </el-table-column>
+      <el-table-column align="center" label="操作">
+        <template slot-scope="scope">
+          <el-button-group>
+            <el-button type="primary" size="small" icon="el-icon-edit" @click="showData(scope.row.item_key)" />
+            <el-button type="danger" size="small" icon="el-icon-delete" />
+          </el-button-group>
+        </template>
+      </el-table-column>
     </el-table>
+    <el-pagination layout="prev, pager, next" :total="50" />
   </div>
 </template>
 
 <script>
-import { query } from '@/api/item'
+import * as api from '@/api'
 
 export default {
   filters: {
@@ -80,12 +92,12 @@ export default {
   methods: {
     listData() {
       this.listLoading = true
-      query().then(response => {
+      api.item.list().then(response => {
         this.list = response.data
         this.listLoading = false
       })
     },
-    readData(key) {
+    showData(key) {
       this.$message(key)
       this.$router.push({ name: 'item.save', query: { key: key }})
     }

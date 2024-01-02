@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <el-button-group>
-      <el-button type="primary" @click="saveData('')">新建</el-button>
+      <el-button type="primary" @click="showData('')">新建</el-button>
     </el-button-group>
     <el-table
       v-loading="listLoading"
@@ -22,7 +22,7 @@
       </el-table-column>
       <el-table-column align="center" label="姓名">
         <template slot-scope="scope">
-          <span @click="saveData(scope.row.diabetes_key)">{{ scope.row.patient.real_name }}</span>
+          <span @click="showData(scope.row.diabetes_key)">{{ scope.row.patient.real_name }}</span>
         </template>
       </el-table-column>
       <el-table-column align="center" label="性别">
@@ -88,7 +88,7 @@ export default {
         this.listLoading = false
       })
     },
-    saveData(key) {
+    showData(key) {
       this.$message(key)
       this.$router.push({ name: 'diabetes.save', query: { key: key }})
     }

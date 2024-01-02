@@ -11,15 +11,9 @@
       fit
       highlight-current-row
     >
-      <el-table-column align="center" type="selection" width="60" />
-      <el-table-column align="center" label="体检类型" width="80" fixed="left">
-        <template slot-scope="scope">
-          {{ scope.row.type }}
-        </template>
-      </el-table-column>
       <el-table-column align="center" label="体检号" width="120" fixed="left">
         <template slot-scope="scope">
-          {{ scope.row.exam_no }}
+          <el-link @click="showData(scope.row.exam_key)">{{ scope.row.exam_no }}</el-link>
         </template>
       </el-table-column>
       <el-table-column align="center" label="完成度" width="100">
@@ -29,7 +23,7 @@
       </el-table-column>
       <el-table-column align="center" label="姓名">
         <template slot-scope="scope">
-          {{ scope.row.real_name }}
+          <el-link @click="showData(scope.row.exam_key)">{{ scope.row.real_name }}</el-link>
         </template>
       </el-table-column>
       <el-table-column align="center" label="性别">
@@ -42,14 +36,14 @@
           {{ scope.row.age }}
         </template>
       </el-table-column>
+      <el-table-column align="center" label="所属">
+        <template slot-scope="scope">
+          {{ scope.row.region ? scope.row.region.name : scope.row.region_name }}
+        </template>
+      </el-table-column>
       <el-table-column align="center" width="100" label="生日">
         <template slot-scope="scope">
           {{ scope.row.birthday }}
-        </template>
-      </el-table-column>
-      <el-table-column align="center" label="所属">
-        <template slot-scope="scope">
-          {{ scope.row.region ? scope.row.region.name : '' }}
         </template>
       </el-table-column>
       <el-table-column align="center" width="180" label="证件">
@@ -62,21 +56,9 @@
           {{ scope.row.exam_date }}
         </template>
       </el-table-column>
-      <el-table-column label="详情" width="55" type="expand">
+      <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-form label-position="left" inline>
-            <el-form-item label="身高体重">{{ scope.$index }}</el-form-item>
-            <el-form-item label="血压">√</el-form-item>
-            <el-form-item label="中医体质辨识">√</el-form-item>
-            <el-form-item label="自理能力评估">√</el-form-item>
-            <el-form-item label="认知功能评估">√</el-form-item>
-            <el-form-item label="情感状态评估">√</el-form-item>
-            <el-form-item label="心电">√</el-form-item>
-            <el-form-item label="B超">√</el-form-item>
-            <el-form-item label="尿常规">√</el-form-item>
-            <el-form-item label="血常规">√</el-form-item>
-            <el-form-item label="血生化">√</el-form-item>
-          </el-form>
+          <el-link @click="showElder(scope.row.exam_key)">健康体检表</el-link>
         </template>
       </el-table-column>
     </el-table>
@@ -84,7 +66,7 @@
 </template>
 
 <script>
-import { query } from '@/api/exam_elder'
+import * as api from '@/api'
 
 export default {
   filters: {
@@ -99,20 +81,28 @@ export default {
   },
   data() {
     return {
-      list: null,
+      list: [],
       listLoading: true
     }
   },
   created() {
-    this.fetchData()
+    this.loadData()
   },
   methods: {
-    fetchData() {
+    loadData() {
       this.listLoading = true
-      query().then(response => {
+      api.exam.elder.list().then(response => {
         this.list = response.data
         this.listLoading = false
       })
+    },
+    showData(key) {
+      this.$message(key)
+      this.$router.push({ name: 'exam.elder.save', query: { key: key }})
+    },
+    showElder(exam_key) {
+      this.$message(exam_key)
+      this.$router.push({ name: 'elder.save', query: { exam_key: exam_key }})
     }
   }
 }

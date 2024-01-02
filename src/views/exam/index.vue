@@ -20,7 +20,7 @@
       </el-table-column>
       <el-table-column align="center" label="体检号" width="120" fixed="left">
         <template slot-scope="scope">
-          {{ scope.row.exam_no }}
+          <ek_link @click="showData(scope.row.exam_key)">{{ scope.row.exam_no }}</ek_link>
         </template>
       </el-table-column>
       <el-table-column align="center" label="完成度" width="100">
@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import { query } from '@/api/exam'
+import * as api from '@/api'
 
 export default {
   filters: {
@@ -110,7 +110,14 @@ export default {
   methods: {
     listData() {
       this.listLoading = true
-      query().then(response => {
+      api.exam.list().then(response => {
+        this.list = response.data
+        this.listLoading = false
+      })
+    },
+    showData() {
+      this.listLoading = true
+      api.exam.list().then(response => {
         this.list = response.data
         this.listLoading = false
       })

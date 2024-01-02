@@ -15,50 +15,45 @@
       highlight-current-row
     >
       <el-table-column align="center" type="selection" width="60" />
-      <el-table-column align="center" label="体检号">
+      <el-table-column align="center" label="用户昵称">
         <template slot-scope="scope">
-          {{ scope.row.exam ? scope.row.exam.exam_no : '' }}
+          <el-link @click="showData(scope.row.user_key)">{{ scope.row.nick_name }}</el-link>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="姓名">
+      <el-table-column align="center" label="真实姓名">
         <template slot-scope="scope">
-          <span @click="showData(scope.row.hypertension_key)">{{ scope.row.patient.real_name }}</span>
+          {{ scope.row.real_name }}
         </template>
       </el-table-column>
-      <el-table-column align="center" label="性别">
+      <el-table-column align="center" label="登录账号">
         <template slot-scope="scope">
-          {{ scope.row.patient.gender }}
+          {{ scope.row.login_name }}
         </template>
       </el-table-column>
-      <el-table-column align="center" label="年龄">
+      <el-table-column align="center" label="登录手机">
         <template slot-scope="scope">
-          {{ scope.row.exam ? scope.row.exam.age : '' }}
+          {{ scope.row.login_phone }}
         </template>
       </el-table-column>
-      <el-table-column align="center" label="生日">
+      <el-table-column align="center" label="登录邮箱">
         <template slot-scope="scope">
-          {{ scope.row.patient.birthday }}
+          {{ scope.row.login_email }}
         </template>
       </el-table-column>
-      <el-table-column align="center" width="180" label="证件">
+      <el-table-column label="操作">
         <template slot-scope="scope">
-          {{ scope.row.patient.idcard_no }}
+          <el-button-group>
+            <el-button type="primary" size="small" icon="el-icon-edit" @click="showData(scope.row.user_key)" />
+            <el-button type="danger" size="small" icon="el-icon-delete" />
+          </el-button-group>
         </template>
-      </el-table-column>
-      <el-table-column align="center" prop="created_at" label="随访日期" width="200">
-        <template slot-scope="scope">
-          {{ scope.row.followup_visit_date }}
-        </template>
-      </el-table-column>
-      <el-table-column label="结果" width="55">
-        <template slot-scope="scope">{{ scope.row.followup_visit_result }}</template>
       </el-table-column>
     </el-table>
   </div>
 </template>
 
 <script>
-import { query } from '@/api/hypertension'
+import * as api from '@/api'
 
 export default {
   filters: {
@@ -73,24 +68,24 @@ export default {
   },
   data() {
     return {
-      list: null,
-      listLoading: true
+      listLoading: false,
+      list: []
     }
   },
   created() {
     this.listData()
   },
+  mounted() {
+  },
   methods: {
     listData() {
-      this.listLoading = true
-      query().then(response => {
+      api.user.list().then(response => {
         this.list = response.data
-        this.listLoading = false
       })
     },
     showData(key) {
       this.$message(key)
-      this.$router.push({ name: 'hypertension.save', query: { key: key }})
+      this.$router.push({ name: 'user.save', query: { key: key }})
     }
   }
 }

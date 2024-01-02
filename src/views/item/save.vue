@@ -13,7 +13,7 @@
         <el-input v-model="detail.name" />
       </el-form-item>
       <el-form-item label="简称">
-        <el-input v-model="detail.abbr_name" />
+        <el-input v-model="detail.alias_name" />
       </el-form-item>
     </el-form>
     <el-form ref="form" :inline="true" label-width="120px">
@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import { read, save } from '@/api/item'
+import * as api from '@/api'
 export default {
   data() {
     return {
@@ -66,13 +66,13 @@ export default {
     readData() {
       this.loading = true
       var query = this.$route.query
-      read({ key: query.key }).then(response => {
+      api.item.read({ key: query.key }).then(response => {
         this.detail = response.data
         this.loading = false
       })
     },
     saveData() {
-      save(this.detail, { key: this.detail.item_key }).then(response => {
+      api.item.save(this.detail, { key: this.$route.query.key }).then(response => {
         this.$message(response.message)
         this.loading = false
       })

@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <el-button-group>
-      <el-button type="primary" @click="saveData('')">新建</el-button>
+      <el-button type="primary" @click="showData('')">新建</el-button>
     </el-button-group>
     <el-table
       v-loading="listLoading"
@@ -17,7 +17,7 @@
       <el-table-column align="center" type="selection" width="60" />
       <el-table-column align="center" label="姓名">
         <template slot-scope="scope">
-          {{ scope.row.real_name }}
+          <el-link @click="showData(scope.row.package_key)">{{ scope.row.real_name }}</el-link>
         </template>
       </el-table-column>
       <el-table-column align="center" label="性别">
@@ -96,6 +96,10 @@ export default {
         this.list = response.data
         this.listLoading = false
       })
+    },
+    showData(key) {
+      this.$message(key)
+      this.$router.push({ name: 'patient.save', query: { key: key }})
     }
   }
 }

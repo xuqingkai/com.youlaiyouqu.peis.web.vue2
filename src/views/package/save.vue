@@ -40,67 +40,57 @@
         <el-transfer
           v-model="detail.combo_keys"
           filterable
-          :filter-method="filterMethod"
+          target-order="push"
           :titles="['待选组合', '已选组合']"
-          filter-placeholder="请输入关键字"
-          :data="combo_list">
-          <span slot-scope="{ option }">{{ option.name }}({{ option.code }})</span>
-        </el-transfer>
+          :data="combo_list" />
       </el-form-item>
     </el-form>
     <el-form ref="form" label-width="120px">
       <el-form-item>
         <el-button type="primary" @click="saveData">提交</el-button>
-        <el-button @click="onCancel">取消</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script>
-import { read, save } from '@/api/package'
-import { query } from '@/api/combo'
+import * as api from '@/api'
 
 export default {
   data() {
     return {
-      detail: {},
-      combo_list: [
-        { key: 'combo1', name: '体征', code: 'body' },
-        { key: 'combo2', name: '血压', code: 'blood_pressure' },
-        { key: 'combo3', name: '血常规', code: 'urine' },
-        { key: 'combo4', name: '尿常规', code: 'blood' }
-      ],
-      filterMethod(query, item) {
-        for (var i in item) {
-          if (item[i].indexOf(query) > -1) { return true }
-        }
-        return false
-      }
+      detail: {
+        code: '',
+        name: '',
+        sortid: 0,
+        combo_keys: [],
+        remark: ''
+      },
+      combo_list: []
     }
   },
   created() {
-    // this.loadCombo()
-    this.readData()
+    this.loadCombo()
+    this.loadData()
   },
   methods: {
     loadCombo() {
       this.loading = true
-      query().then(response => {
-        this.combo_list = response.data
+      api.combo.list().then(response => {
+        this.combo_list = response.data.map(item => ({ key: item.combo_key, label: '' + item.name + '(' + item.code + ')' }))
         this.loading = false
       })
     },
-    readData() {
+    loadData() {
       this.loading = true
       var query = this.$route.query
-      read({ key: query.key, combo: 'keys' }).then(response => {
+      api.pkg.read({ key: query.key, combo: 'keys' }).then(response => {
         this.detail = response.data
         this.loading = false
       })
     },
     saveData() {
-      save(this.detail, { key: this.detail.package_key }).then(response => {
+      api.pkg.save(this.detail, { key: this.detail.package_key }).then(response => {
         this.$message(response.message)
         this.loading = false
       })

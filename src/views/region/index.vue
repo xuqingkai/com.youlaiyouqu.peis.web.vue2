@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <el-button-group>
-      <el-button type="primary" @click="saveData('')">新建</el-button>
+      <el-button type="primary" @click="showData('')">新建</el-button>
     </el-button-group>
     <el-table
       v-loading="listLoading"
@@ -15,31 +15,29 @@
       highlight-current-row
     >
       <el-table-column align="center" type="selection" width="60" />
-      <el-table-column align="center" label="所属单位">
+      <el-table-column align="center" label="所属区域">
         <template slot-scope="scope">
-          {{ scope.row.name }}
+          <el-link @click="showData(scope.row.code)">{{ scope.row.name }}</el-link>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="性别">
+      <el-table-column align="center" label="代码">
         <template slot-scope="scope">
           {{ scope.row.code }}
         </template>
       </el-table-column>
-      <el-table-column label="详情" width="55" type="expand">
+      <el-table-column align="center" label="责任医生">
         <template slot-scope="scope">
-          <el-form label-position="left" inline>
-            <el-form-item label="身高体重">{{ scope.$index }}</el-form-item>
-            <el-form-item label="血压">√</el-form-item>
-            <el-form-item label="中医体质辨识">√</el-form-item>
-            <el-form-item label="自理能力评估">√</el-form-item>
-            <el-form-item label="认知功能评估">√</el-form-item>
-            <el-form-item label="情感状态评估">√</el-form-item>
-            <el-form-item label="心电">√</el-form-item>
-            <el-form-item label="B超">√</el-form-item>
-            <el-form-item label="尿常规">√</el-form-item>
-            <el-form-item label="血常规">√</el-form-item>
-            <el-form-item label="血生化">√</el-form-item>
-          </el-form>
+          <label v-for="item in scope.row.doctors" :key="item.id" :label="item.user_key">{{ item.nick_name }} </label>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作">
+        <template slot-scope="scope">
+          <el-button-group>
+            <el-button size="small" icon="el-icon-top" />
+            <el-button size="small" icon="el-icon-bottom" />
+            <el-button type="primary" size="small" icon="el-icon-edit" @click="showData(scope.row.code)" />
+            <el-button type="danger" size="small" icon="el-icon-delete" />
+          </el-button-group>
         </template>
       </el-table-column>
     </el-table>
@@ -47,7 +45,7 @@
 </template>
 
 <script>
-import { region_query, region } from '@/api'
+import { region } from '@/api/index'
 
 export default {
   filters: {
@@ -62,7 +60,11 @@ export default {
   },
   data() {
     return {
-      list: null,
+      list: [
+        {
+          doctors: []
+        }
+      ],
       listLoading: true
     }
   },
@@ -74,12 +76,16 @@ export default {
   methods: {
     listData() {
       this.listLoading = true
-      region.query({
+      region.list({
         code: '370831001'
       }).then(response => {
         this.list = response.data
         this.listLoading = false
       })
+    },
+    showData(code) {
+      this.$message(code)
+      this.$router.push({ name: 'region.save', query: { code: code }})
     }
   }
 }

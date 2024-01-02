@@ -6,7 +6,7 @@
 
     <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
-        <div class="avatar-wrapper">管理员,退出<i class="el-icon-caret-bottom"></i></div>
+        <div class="avatar-wrapper">管理员,退出<i class="el-icon-caret-bottom" /></div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
           <router-link to="/">
             <el-dropdown-item>个人设置</el-dropdown-item>

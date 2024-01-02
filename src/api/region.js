@@ -9,7 +9,7 @@ export function index(params) {
 }
 export function query(query) {
   return request({
-    url: '/region/subsets',
+    url: '/region/query',
     method: 'get',
     params: query
   })
@@ -21,9 +21,9 @@ export function subsets(query) {
     params: query
   })
 }
-export function doctor(query) {
+export function read(query) {
   return request({
-    url: '/region/doctor',
+    url: '/region/read',
     method: 'get',
     params: query
   })

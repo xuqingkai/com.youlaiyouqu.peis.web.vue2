@@ -1,5 +1,8 @@
 <template>
   <div class="app-container">
+    <el-button-group>
+      <el-button type="primary" @click="showData('')">新建</el-button>
+    </el-button-group>
     <el-table
       v-loading="listLoading"
       :data="list"
@@ -12,19 +15,14 @@
       highlight-current-row
     >
       <el-table-column align="center" type="selection" width="60" />
-      <el-table-column align="center" label="标识">
+      <el-table-column align="center" label="名称">
         <template slot-scope="scope">
-          <span @click="readData(scope.row.package_key)">{{ scope.row.package_key }}</span>
+          <el-link @click="showData(scope.row.package_key)">{{ scope.row.name }}</el-link>
         </template>
       </el-table-column>
       <el-table-column align="center" label="代码">
         <template slot-scope="scope">
           {{ scope.row.code }}
-        </template>
-      </el-table-column>
-      <el-table-column align="center" label="名称">
-        <template slot-scope="scope">
-          {{ scope.row.name }}
         </template>
       </el-table-column>
       <el-table-column align="center" label="性别">
@@ -49,12 +47,22 @@
           </span>
         </template>
       </el-table-column>
+      <el-table-column align="center" label="操作">
+        <template slot-scope="scope">
+          <el-button-group>
+            <el-button size="small" icon="el-icon-top" />
+            <el-button size="small" icon="el-icon-bottom" />
+            <el-button type="primary" size="small" icon="el-icon-edit" @click="showData(scope.row.package_key)" />
+            <el-button type="danger" size="small" icon="el-icon-delete" />
+          </el-button-group>
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
 
 <script>
-import { query } from '@/api/package'
+import * as api from '@/api'
 
 export default {
   filters: {
@@ -79,12 +87,12 @@ export default {
   methods: {
     listData() {
       this.listLoading = true
-      query({ combo: 1 }).then(response => {
+      api.pkg.list({ combo: 1 }).then(response => {
         this.list = response.data
         this.listLoading = false
       })
     },
-    readData(key) {
+    showData(key) {
       this.$message(key)
       this.$router.push({ name: 'package.save', query: { key: key }})
     }

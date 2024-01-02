@@ -2,75 +2,75 @@
   <div class="app-container">
     <el-form ref="form" :inline="true" label-width="120px">
       <el-form-item label="体检类型">
-        <el-select v-model="exam.type" placeholder="请选择">
+        <el-select v-model="detail.type" placeholder="请选择">
           <el-option label="一般查体" value="health" />
           <el-option label="老年人查体" value="elder" />
         </el-select>
       </el-form-item>
       <el-form-item label="体检套餐">
-        <el-select v-model="exam.package" placeholder="请选择">
+        <el-select v-model="detail.package" placeholder="请选择">
           <el-option label="老年人公卫" value="elder" />
         </el-select>
       </el-form-item>
     </el-form>
     <el-form ref="form" :inline="true" label-width="120px">
       <el-form-item label="姓名">
-        <el-input v-model="exam.real_name" />
+        <el-input v-model="detail.real_name" @blur="real_name_blur" />
       </el-form-item>
       <el-form-item label="所属">
-        <el-select v-model="exam.region" placeholder="请选择" @change="region_change">
+        <el-select v-model="detail.region_code" placeholder="请选择" @change="region_change">
           <el-option v-for="item in regions" :key="item.code" :label="item.name" :value="item.code" />
         </el-select>
       </el-form-item>
     </el-form>
     <el-form ref="form" :inline="true" label-width="120px">
       <el-form-item label="性别">
-        <el-radio-group v-model="exam.gender">
+        <el-radio-group v-model="detail.gender">
           <el-radio label="男" />
           <el-radio label="女" />
         </el-radio-group>
       </el-form-item>
       <el-form-item label="民族">
-        <el-select v-model="exam.ethno" placeholder="请选择">
-          <el-option label="汉族" value="han" />
-          <el-option label="回族" value="hui" />
-          <el-option label="蒙古族" value="menggu" />
-          <el-option label="维吾尔族" value="weiwuer" />
+        <el-select v-model="detail.ethno" placeholder="请选择">
+          <el-option v-for="item in ethno_list" :key="item.code" :label="item.code + '.' + item.name" :value="item.name" />
         </el-select>
       </el-form-item>
     </el-form>
     <el-form ref="form" :inline="true" label-width="120px">
       <el-form-item label="出生日期">
-        <el-date-picker v-model="exam.birthday" type="date" placeholder="请选择" lang="cn" />
+        <el-date-picker v-model="detail.birthday" type="date" placeholder="请选择" lang="cn" />
       </el-form-item>
       <el-form-item label="年龄">
-        <el-input v-model="exam.age" />
+        <el-input v-model="detail.age" />
       </el-form-item>
     </el-form>
     <el-form ref="form" label-width="120px">
       <el-form-item label="证件号码">
-        <el-input v-model="exam.idcard_no" />
+        <el-input v-model="detail.idcard_no" />
       </el-form-item>
       <el-form-item label="户籍住址">
-        <el-input v-model="exam.idcard_address" />
+        <el-input v-model="detail.idcard_address" />
       </el-form-item>
     </el-form>
     <el-form ref="form" :inline="true" label-width="120px">
       <el-form-item label="联系方式">
-        <el-input v-model="exam.mobiphone" />
+        <el-input v-model="detail.mobiphone" />
       </el-form-item>
-      <el-form-item label="备用电话">
-        <el-input v-model="exam.telepphone" />
+      <el-form-item label="联系人姓名">
+        <el-input v-model="detail.patient.contact1_name" />
+      </el-form-item>
+      <el-form-item label="联系人电话">
+        <el-input v-model="detail.patient.contact1_phone" />
       </el-form-item>
     </el-form>
     <el-form ref="form" label-width="120px">
       <el-form-item label="现居住址">
-        <el-input v-model="exam.address" />
+        <el-input v-model="detail.address" />
       </el-form-item>
     </el-form>
     <el-form ref="form" label-width="120px">
       <el-form-item label="慢病管理">
-        <el-checkbox-group v-model="exam.patient.chronic_disease">
+        <el-checkbox-group v-model="detail.patient.chronic_disease">
           <el-checkbox label="hypertension" name="type">高血压</el-checkbox>
           <el-checkbox label="diabetes" name="type">糖尿病</el-checkbox>
           <el-checkbox label="phthisis" name="type">肺结核</el-checkbox>
@@ -81,109 +81,144 @@
     </el-form>
     <el-form ref="form" label-width="120px">
       <el-form-item label="责任医生">
-        <el-radio-group v-model="exam.user_key">
-          <el-radio v-for="item in doctors" :key="item.id" :label="item.user_key">{{ item.real_name }}</el-radio>
+        <el-radio-group v-model="detail.user_key">
+          <el-radio v-for="item in doctors" :key="item.id" :label="item.user_key">{{ item.nick_name }}</el-radio>
         </el-radio-group>
       </el-form-item>
     </el-form>
     <el-form ref="form" label-width="120px">
       <el-form-item label="备注信息">
-        <el-input v-model="exam.remark" type="textarea" />
+        <el-input v-model="detail.remark" type="textarea" />
       </el-form-item>
     </el-form>
     <el-form ref="form" label-width="120px">
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">提交</el-button>
-        <el-button @click="onCancel">取消</el-button>
+        <el-button type="primary" @click="saveData">提交</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script>
-import { save } from '@/api/exam_elder'
-import { subsets as subsets1, doctor } from '@/api/region'
+import * as api from '@/api'
 import { parseTime } from '@/utils'
 export default {
   data() {
     return {
       regions: [],
       doctors: [],
-      exam: {
+      ethno_list: [],
+      detail: {
         type: 'elder',
         package: 'elder',
-        real_name: '',
-        region: '',
-        gender: '女',
-        ethno: 'menggu',
-        birthday: '',
-        age: '',
-        idcard_no: '',
-        idcard_address: '',
-        idcard_sn: '',
-        mobiphone: '',
-        telephone: '',
-        patient: {
-          chronic_disease: ['hypertension']
-        },
         user_key: '',
-        remark: ''
+        patient: {
+          chronic_disease: []
+        }
       }
     }
   },
   mounted() {
     window.swipeIDCard = this._swipeIDCard
-    subsets1({
-      code: '370831001'
-    }).then(response => {
-      if (response.code !== 'SUCCESS') {
-        this.$message.error(response.message)
-      } else {
-        this.$data.regions = response.data
-      }
-      this.listLoading = false
-    })
+    this.loadRegion()
+    this.loadEthno()
+  },
+  created() {
+    this.readData()
   },
   methods: {
     swipeIDCard() {
       window.external.swipeIDCard('{"name":"test2222222222222222222222"}')
     },
     _swipeIDCard(str) {
-      this.$data.exam = Object.assign({}, this.$data.exam, JSON.parse(str))
+      this.detail = Object.assign({}, this.detail, JSON.parse(str))
       return '{"id":0,"code":"SUCCESS","message":"调取成功","data":' + str + ',"datetime":"' + parseTime(new Date(), '{m}-{d} {h}:{i}:{s}') + '"}'
     },
+    loadRegion() {
+      api.region.subsets({
+        code: '370831001'
+      }).then(response => {
+        if (response.code !== 'SUCCESS') {
+          this.$message.error(response.message)
+        } else {
+          this.regions = response.data
+        }
+        this.listLoading = false
+      })
+    },
+    real_name_blur() {
+      // 徐清凯 男 1983-9-15 370831198309155819 汉族 山东省泗水县中册镇徐家庄村113号
+      var val = this.detail.real_name.split(' ')
+      if (val.length > 3) {
+        this.detail.real_name = val[0]
+        this.detail.gender = val[1]
+        this.detail.birthday = val[2]
+        this.detail.age = 2023 - this.detail.birthday.substr(0, 4)
+        this.detail.idcard_no = val[3]
+        this.detail.ethno = val[4]
+        this.detail.idcard_address = val[5]
+        this.regions.forEach(region => {
+          if (this.detail.idcard_address.indexOf(region.name) >= 0) {
+            this.detail.region_code = region.code
+          }
+        })
+      }
+    },
+    loadEthno() {
+      api.utils.ethno().then(response => {
+        if (response.code !== 'SUCCESS') {
+          this.$message.error(response.message)
+        } else {
+          this.ethno_list = response.data
+        }
+        this.listLoading = false
+      })
+    },
     region_change() {
-      doctor({
-        code: this.$data.exam.region
+      this.detail.region_name = ''
+      for (var i in this.regions) {
+        if (this.detail.region_code === this.regions[i].code) {
+          this.detail.region_name = this.regions[i].name
+        }
+      }
+      api.region.read({
+        code: this.detail.region_code
       }).then(response => {
         if (response.code !== 'SUCCESS') {
           this.$message.error(response.message)
         } else {
           this.$data.doctors = response.data.doctors
           if (this.$data.doctors.length > 0) {
-            this.$data.exam.user_key = this.$data.doctors[0].user_key
+            this.detail.user_key = this.doctors[0].user_key
           } else {
-            this.$data.exam.user_key = ''
+            this.detail.user_key = ''
           }
         }
         this.listLoading = false
       })
     },
-    onSubmit() {
-      save(this.exam).then(response => {
+    readData() {
+      var query = this.$route.query
+      this.detail.exam_key = query.key
+      api.exam.elder.read({ key: query.key }).then(response => {
+        if (response.code !== 'SUCCESS') {
+          this.$message.error(response.message)
+        } else if (response.data) {
+          this.detail = response.data
+          this.region_change()
+        }
+      })
+    },
+    saveData() {
+      api.exam.elder.save(this.detail, {
+        key: this.detail.exam_key
+      }).then(response => {
         if (response.code !== 'SUCCESS') {
           this.$message.error(response.message)
         } else {
           this.$router.push({ name: 'exam.elder' })
         }
         this.listLoading = false
-      })
-    },
-    onCancel() {
-      alert(this.$data.exam.manbing)
-      this.$message({
-        message: 'cancel!',
-        type: 'warning'
       })
     }
   }

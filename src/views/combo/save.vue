@@ -8,12 +8,9 @@
         <el-input v-model="detail.name" />
       </el-form-item>
     </el-form>
-    <el-form-item label="排序">
-      <el-input v-model="detail.sortid" />
-    </el-form-item>
-    <el-form ref="form" label-width="120px">
-      <el-form-item label="备注信息">
-        <el-input v-model="detail.remark" type="textarea" />
+    <el-form ref="form" :inline="true" label-width="120px">
+      <el-form-item label="排序">
+        <el-input v-model="detail.sortid" />
       </el-form-item>
     </el-form>
     <el-form ref="form" label-width="120px">
@@ -21,74 +18,61 @@
         <el-transfer
           v-model="detail.item_keys"
           filterable
-          :filter-method="filterMethod"
+          target-order="push"
           :titles="['待选项目', '已选项目']"
-          filter-placeholder="请输入关键字"
-          :data="items">
-          <span slot-scope="{ option }">{{ option.name }}({{ option.key }})</span>
-        </el-transfer>
+          :data="item_list" />
+      </el-form-item>
+    </el-form>
+    <el-form ref="form" label-width="120px">
+      <el-form-item label="备注信息">
+        <el-input v-model="detail.remark" type="textarea" />
       </el-form-item>
     </el-form>
     <el-form ref="form" label-width="120px">
       <el-form-item>
         <el-button type="primary" @click="saveData">提交</el-button>
-        <el-button @click="onCancel">取消</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script>
-import { read, save } from '@/api/combo'
-import { query } from '@/api/item'
+import * as api from '@/api'
 
 export default {
   data() {
     return {
-      detail: {},
-      items: [
-        { key: 'body_height', name: '身高', code: 'HEIGHT' },
-        { key: 'body_weight', name: '体重', code: 'WEIGHT' },
-        { key: 'body_waistline', name: '腰围', code: 'WAISTLINE' }
-      ],
-      filterMethod(query, item) {
-        for (var i in item) {
-          if (item[i].indexOf(query) > -1) { return true }
-        }
-        return false
-      }
+      detail: {
+        code: '',
+        name: '',
+        sortid: 0,
+        item_keys: [],
+        remark: ''
+      },
+      item_list: []
     }
   },
   created() {
-    // this.loadItem()
+    this.loadItem()
     this.readData()
   },
   methods: {
     loadItem() {
       this.loading = true
-      query().then(response => {
-        this.items = response.data
-        this.loading = false
+      api.item.list({ page_size: 9999 }).then(response => {
+        this.item_list = response.data.map(item => ({ key: item.item_key, label: '' + item.name + '(' + item.code + ')' }))
       })
     },
     readData() {
       this.loading = true
       var query = this.$route.query
-      read({ key: query.key, item: 'keys' }).then(response => {
+      api.combo.read({ key: query.key, item: 'keys' }).then(response => {
         this.detail = response.data
-        this.loading = false
       })
     },
     saveData() {
-      save(this.detail, { key: this.detail.combo_key }).then(response => {
+      api.combo.save(this.detail, { key: this.$route.query.key }).then(response => {
         this.$message(response.message)
-        this.loading = false
-      })
-    },
-    onCancel() {
-      this.$message({
-        message: 'cancel!',
-        type: 'warning'
       })
     }
   }
@@ -96,8 +80,8 @@ export default {
 </script>
 
 <style scoped>
-.line{
-  text-align: center;
+.el-transfer-panel{
+  width: 400px;
 }
 </style>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <el-button-group>
-      <el-button type="primary" @click="saveData('')">新建</el-button>
+      <el-button type="primary" @click="showData('')">新建</el-button>
     </el-button-group>
     <el-table
       v-loading="listLoading"
@@ -15,14 +15,14 @@
       highlight-current-row
     >
       <el-table-column align="center" type="selection" width="60" />
-      <el-table-column align="center" label="体检号">
+      <el-table-column align="center" label="体检号" width="110">
         <template slot-scope="scope">
-          <span @click="saveData(scope.row.elder_key)">{{ scope.row.exam_no }}</span>
+          <el-link @click="showData(scope.row.elder_key)">{{ scope.row.exam_no }}</el-link>
         </template>
       </el-table-column>
       <el-table-column align="center" label="姓名">
         <template slot-scope="scope">
-          {{ scope.row.patient.real_name }}
+          <el-link @click="showData(scope.row.elder_key)">{{ scope.row.patient.real_name }}</el-link>
         </template>
       </el-table-column>
       <el-table-column align="center" label="性别">
@@ -42,7 +42,7 @@
       </el-table-column>
       <el-table-column align="center" width="120" label="所属">
         <template slot-scope="scope">
-          {{ scope.row.region?scope.row.region.name:'' }}
+          {{ scope.row.exam.region_name }}
         </template>
       </el-table-column>
       <el-table-column align="center" width="180" label="证件">
@@ -73,6 +73,13 @@
       <el-table-column align="center" prop="created_at" label="体检日期" width="200">
         <template slot-scope="scope">
           {{ scope.row.exam.exam_date }}
+        </template>
+      </el-table-column>
+      <el-table-column label="操作" align="center">
+        <template slot-scope="scope">
+          <el-button-group>
+            <el-button type="primary" size="small" icon="el-icon-edit" @click="showData(scope.row.elder_key)" />
+          </el-button-group>
         </template>
       </el-table-column>
       <el-table-column label="详情" width="55" type="expand">
@@ -127,7 +134,7 @@ export default {
         this.listLoading = false
       })
     },
-    saveData(key) {
+    showData(key) {
       this.$message(key)
       this.$router.push({ name: 'elder.save', query: { key: key }})
     }

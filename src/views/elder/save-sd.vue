@@ -28,6 +28,7 @@
       <tr>
         <th>内容</th>
         <th colspan="6">检查项目</th>
+        <th>医师签名</th>
       </tr>
       <tr>
         <th>症<br>状</th>
@@ -61,6 +62,7 @@
           </el-checkbox-group>
           <el-input v-model="detail.symptom_other" :disabled="!detail.symptom.includes('25.其他')" size="mini" style="margin-left:10px; width: 120px" @input="changeCheckbox(detail.symptom_other, detail.symptom, '25.其他')" />
         </td>
+        <td><img src="/static/images/doctor_sign.png"></td>
       </tr>
       <tr>
         <th rowspan="9">一<br>般<br>状<br>况</th>
@@ -68,6 +70,7 @@
         <td><el-input v-model="detail.body_temperature" size="mini" style="width: 80px" />℃</td>
         <th>脉率</th>
         <td colspan="2"><el-input v-model="detail.pulse_rate" size="mini" style="width: 50px" />次/分钟</td>
+        <td rowspan="9"><img src="/static/images/doctor_sign.png"></td>
       </tr>
       <tr>
         <th rowspan="2" colspan="2">呼吸频率</th>
@@ -169,6 +172,7 @@
             </tr>
           </table>
         </td>
+        <td rowspan="5"><img src="/static/images/doctor_sign.png"></td>
       </tr>
       <tr>
         <th colspan="2">饮食习惯</th>
@@ -359,6 +363,7 @@
             <el-radio label="5.疱疹" />
           </el-radio-group>
         </td>
+        <td rowspan="6"><img src="/static/images/doctor_sign.png"></td>
       </tr>
       <tr>
         <td colspan="4">
@@ -473,6 +478,7 @@
           </el-radio-group>
           <el-input v-model="detail.fundus_other" size="mini" style="margin-left:10px; width: 100px" />
         </td>
+        <td><img src="/static/images/doctor_sign.png"></td>
       </tr>
       <tr>
         <th colspan="2">皮肤</th>
@@ -488,6 +494,7 @@
           </el-radio-group>
           <el-input v-model="detail.skin_other" size="mini" style="margin-left:10px; width: 100px" />
         </td>
+        <td rowspan="10"><img src="/static/images/doctor_sign.png"></td>
       </tr>
       <tr>
         <th colspan="2">巩膜</th>
@@ -633,6 +640,7 @@
           </el-radio-group>
           <el-input v-model="detail.anus_other" size="mini" style="margin-left:10px; width: 100px" />
         </td>
+        <td><img src="/static/images/doctor_sign.png"></td>
       </tr>
       <tr>
         <th colspan="2">乳腺*</th>
@@ -646,6 +654,7 @@
           </el-checkbox-group>
           <el-input v-model="detail.galactophore_other" size="mini" style="margin-left:10px; width: 100px" />
         </td>
+        <td><img src="/static/images/doctor_sign.png"></td>
       </tr>
       <tr>
         <th rowspan="5">妇科*</th>
@@ -657,6 +666,7 @@
           </el-radio-group>
           <el-input v-model="detail.vulva_abnormal" size="mini" style="margin-left:10px; width: 100px" />
         </td>
+        <td rowspan="5"><img src="/static/images/doctor_sign.png"></td>
       </tr>
       <tr>
         <th>阴道</th>
@@ -703,14 +713,16 @@
         <td colspan="4">
           <el-input v-model="detail.body_other" size="mini" style="margin-left:10px; width: 200px" />
         </td>
+        <td><img src="/static/images/doctor_sign.png"></td>
       </tr>
       <tr>
-        <th rowspan="24">辅<br>助<br>检<br>查</th>
+        <th rowspan="25">辅<br>助<br>检<br>查</th>
         <th colspan="2">血型</th>
         <td colspan="4">
           ABO <el-input v-model="detail.blood_abo" size="mini" style="width: 80px" />
           Rh* <el-input v-model="detail.blood_rh" size="mini" style="width: 80px" />
         </td>
+        <td rowspan="7"><img src="/static/images/doctor_sign.png"></td>
       </tr>
       <tr>
         <th colspan="2" rowspan="2">血常规*</th>
@@ -745,25 +757,13 @@
         </td>
       </tr>
       <tr>
-        <th colspan="2">心电图*</th>
-        <td colspan="4">
-          <el-checkbox-group v-model="detail.ecg">
-            <el-checkbox label="1.正常" />
-            <el-checkbox label="2.ST-T改变" />
-            <el-checkbox label="3.陈旧性心肌梗塞" />
-            <el-checkbox label="4.窦性心动过速" />
-            <el-checkbox label="5.窦性心动过缓" />
-            <el-checkbox label="6.早搏" />
-            <el-checkbox label="7.房颤" />
-            <el-checkbox label="8.房室传导阻滞" />
-            <el-checkbox label="9.其他" />
-          </el-checkbox-group>
-          <el-input v-model="detail.ecg_other" size="mini" style="margin-left:10px; width: 200px" />
-        </td>
+        <th colspan="2">同型半胱氨酸</th>
+        <td colspan="4"><el-input v-model="detail.bloodbc_hcy" size="mini" style="width: 70px" />umol/L</td>
       </tr>
       <tr>
         <th colspan="2">尿微量白蛋白*</th>
         <td colspan="4"><el-input v-model="detail.urine_malb" size="mini" style="width: 70px" />mg/dL</td>
+        <td><img src="/static/images/doctor_sign.png"></td>
       </tr>
       <tr>
         <th colspan="2">大便潜血*</th>
@@ -773,6 +773,7 @@
             <el-radio label="2.阳性" />
           </el-radio-group>
         </td>
+        <td rowspan="11"><img src="/static/images/doctor_sign.png"></td>
       </tr>
       <tr>
         <th colspan="2">糖化血红蛋白*</th>
@@ -830,6 +831,24 @@
         <td colspan="4">血清高密度脂蛋白胆固醇<el-input v-model="detail.bloodbc_ldlc" size="mini" style="width: 70px" />mmol/L</td>
       </tr>
       <tr>
+        <th colspan="2">心电图*</th>
+        <td colspan="4">
+          <el-checkbox-group v-model="detail.ecg">
+            <el-checkbox label="1.正常" />
+            <el-checkbox label="2.ST-T改变" />
+            <el-checkbox label="3.陈旧性心肌梗塞" />
+            <el-checkbox label="4.窦性心动过速" />
+            <el-checkbox label="5.窦性心动过缓" />
+            <el-checkbox label="6.早搏" />
+            <el-checkbox label="7.房颤" />
+            <el-checkbox label="8.房室传导阻滞" />
+            <el-checkbox label="9.其他" />
+          </el-checkbox-group>
+          <el-input v-model="detail.ecg_other" size="mini" style="margin-left:10px; width: 200px" />
+        </td>
+        <td><img src="/static/images/doctor_sign.png"></td>
+      </tr>
+      <tr>
         <th colspan="2">胸部X线片*</th>
         <td colspan="4">
           <el-radio-group v-model="detail.chest_xray">
@@ -838,6 +857,7 @@
           </el-radio-group>
           <el-input v-model="detail.chest_xray_abnormal" size="mini" style="margin-left:10px; width: 200px" />
         </td>
+        <td><img src="/static/images/doctor_sign.png"></td>
       </tr>
       <tr>
         <th colspan="2" rowspan="2">B超*</th>
@@ -849,6 +869,7 @@
           </el-radio-group>
           <el-input v-model="detail.abdomen_bus_abnormal" size="mini" style="margin-left:10px; width: 200px" />
         </td>
+        <td><img src="/static/images/doctor_sign.png"></td>
       </tr>
       <tr>
         <td colspan="4">
@@ -859,6 +880,7 @@
           </el-radio-group>
           <el-input v-model="detail.bus_other_abnormal" size="mini" style="margin-left:10px; width: 200px" />
         </td>
+        <td><img src="/static/images/doctor_sign.png"></td>
       </tr>
       <tr>
         <th colspan="2">宫颈涂片*</th>
@@ -869,13 +891,15 @@
           </el-radio-group>
           <el-input v-model="detail.cervical_smear_abnormal" size="mini" style="margin-left:10px; width: 200px" />
         </td>
+        <td><img src="/static/images/doctor_sign.png"></td>
       </tr>
       <tr>
         <th colspan="2">其他*</th>
         <td colspan="4"><el-input v-model="detail.assist_other" size="mini" style="width: 200px" /></td>
+        <td><img src="/static/images/doctor_sign.png"></td>
       </tr>
       <tr>
-        <th rowspan="7">现<br>存<br>主<br>要<br>健<br>康<br>问<br>题</th>
+        <th rowspan="6">现<br>存<br>主<br>要<br>健<br>康<br>问<br>题</th>
         <th colspan="2">脑血管疾病</th>
         <td colspan="4">
           <el-checkbox-group v-model="detail.cerebrovascular">
@@ -888,6 +912,7 @@
           </el-checkbox-group>
           <el-input v-model="detail.cerebrovascular_other" size="mini" style="margin-left:10px; width: 200px" />
         </td>
+        <td rowspan="8"><img src="/static/images/doctor_sign.png"></td>
       </tr>
       <tr>
         <th colspan="2">肾脏疾病</th>
@@ -904,30 +929,21 @@
         </td>
       </tr>
       <tr>
-        <th colspan="2">心脏疾病</th>
+        <th colspan="2">心血管疾病</th>
         <td colspan="4">
-          <el-checkbox-group v-model="detail.heart_diseases">
+          <el-checkbox-group v-model="detail.cardiovascular">
             <el-checkbox label="1.未发现" />
             <el-checkbox label="2.心肌梗死" />
             <el-checkbox label="3.心绞痛" />
             <el-checkbox label="4.冠状动脉运血重建" />
             <el-checkbox label="5.充血性心力衰竭" />
             <el-checkbox label="6.心前区疼痛" />
-            <el-checkbox label="7.其他" />
+            <el-checkbox label="7.高血压" />
+            <el-checkbox label="8.夹层动脉瘤" />
+            <el-checkbox label="9.动脉闭塞性疾病" />
+            <el-checkbox label="10.其他" />
           </el-checkbox-group>
-          <el-input v-model="detail.heart_diseases_other" size="mini" style="margin-left:10px; width: 200px" />
-        </td>
-      </tr>
-      <tr>
-        <th colspan="2">血管疾病</th>
-        <td colspan="4">
-          <el-checkbox-group v-model="detail.vascular_diseases">
-            <el-checkbox label="1.未发现" />
-            <el-checkbox label="2.夹层动脉瘤" />
-            <el-checkbox label="3.动脉闭塞性疾病" />
-            <el-checkbox label="4.其他" />
-          </el-checkbox-group>
-          <el-input v-model="detail.vascular_diseases_other" size="mini" style="margin-left:10px; width: 200px" />
+          <el-input v-model="detail.cardiovascular_other" size="mini" style="margin-left:10px; width: 200px" />
         </td>
       </tr>
       <tr>
@@ -948,7 +964,9 @@
         <td colspan="4">
           <el-checkbox-group v-model="detail.nervous_system">
             <el-checkbox label="1.未发现" />
-            <el-checkbox label="2.其他" />
+            <el-checkbox label="2.阿尔兹海默症(老年性痴呆)" />
+            <el-checkbox label="3.帕金森症" />
+            <el-checkbox label="4.其他" />
           </el-checkbox-group>
           <el-input v-model="detail.nervous_system_other" size="mini" style="margin-left:10px; width: 200px" />
         </td>
@@ -958,7 +976,12 @@
         <td colspan="4">
           <el-checkbox-group v-model="detail.other_diseases">
             <el-checkbox label="1.未发现" />
-            <el-checkbox label="2.其他" />
+            <el-checkbox label="2.糖尿病" />
+            <el-checkbox label="3.慢性支气管炎" />
+            <el-checkbox label="4.慢性阻塞性肺气肿" />
+            <el-checkbox label="5.恶性肿瘤" />
+            <el-checkbox label="6.老年性骨关节病" />
+            <el-checkbox label="7.其他" />
           </el-checkbox-group>
           <el-input v-model="detail.other_diseases_other" size="mini" style="margin-left:10px; width: 200px" />
         </td>
@@ -1041,6 +1064,7 @@
             </tr>
           </table>
         </td>
+        <td><img src="/static/images/doctor_sign.png"></td>
       </tr>
       <tr>
         <th>非免疫<br>规划预防<br>接种史</th>
@@ -1061,6 +1085,7 @@
             </tr>
           </table>
         </td>
+        <td><img src="/static/images/doctor_sign.png"></td>
       </tr>
       <tr>
         <th>健康<br>评价</th>
@@ -1079,6 +1104,7 @@
             </tr>
           </table>
         </td>
+        <td><img src="/static/images/doctor_sign.png"></td>
       </tr>
       <tr>
         <th>健<br>康<br>指<br>导</th>
@@ -1110,6 +1136,25 @@
           <el-checkbox v-model="detail.dangerous_factor_control" label="7.其他" />
           <el-input v-model="detail.dfc_other" size="mini" style=" width: 150px" />
         </td>
+        <td><img src="/static/images/doctor_sign.png"></td>
+      </tr>
+      <tr>
+        <th rowspan="4">结<br>果<br>反<br>馈</th>
+        <td colspan="7">以上体检结果、健康评价已面对面反馈本人（家属），并已进行健康指导</td>
+      </tr>
+      <tr>
+        <td colspan="3" rowspan="2">&nbsp;</td>
+        <td colspan="4">
+          签字：<img src="/static/images/doctor_sign.png">（本人）
+          /<img src="/static/images/doctor_sign.png">（家属）
+        </td>
+      </tr>
+      <tr>
+        <td colspan="4">反馈人签字：<img src="/static/images/doctor_sign.png"></td>
+      </tr>
+      <tr>
+        <td colspan="3">&nbsp;</td>
+        <td colspan="4">反馈时间：<el-date-picker v-model="detail.feedback_date" type="date" size="mini" style=" width: 150px" /></td>
       </tr>
       <tr>
         <th colspan="11"><el-button type="primary" round @click="saveData">保存</el-button></th>
@@ -1203,8 +1248,6 @@ export default {
         ecg: [],
         cerebrovascular: [],
         kidney_diseases: [],
-        heart_diseases: [],
-        vascular_diseases: [],
         cardiovascular: [],
         eye_diseases: [],
         nervous_system: [],

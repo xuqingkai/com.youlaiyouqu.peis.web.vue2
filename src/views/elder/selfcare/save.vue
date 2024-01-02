@@ -5,14 +5,14 @@
     </div>
     <table style="text-align: left;">
       <tr>
-        <th style="text-align: center;">{{ elder.patient.real_name }}, {{ elder.patient.gender }}, {{ elder.exam.age }}, {{ elder.patient.idcard_no }}, {{ elder.exam.region_name }}</th>
+        <th style="text-align: center;">{{ detail.patient.real_name }}, {{ detail.patient.gender }}, {{ detail.exam.age }}, {{ detail.patient.idcard_no }}, {{ detail.exam.region_name }}</th>
       </tr>
       <tr>
         <th style="text-align: left;">(1)进餐：使用餐具将饭菜送入口、咀嚼、吞咽等活动</th>
       </tr>
       <tr>
         <td style="text-align: left; padding: 20px 0;">
-          <el-radio-group v-model="elder.eat">
+          <el-radio-group v-model="detail.eat">
             <el-radio label="0">1.可自理，独立完成(0分)</el-radio>
             <el-radio label="0" disabled>2.轻度依赖(0分)</el-radio>
             <el-radio label="3">3.中度依赖，需要协助，如切碎、搅拌食物等(3分)</el-radio>
@@ -25,7 +25,7 @@
       </tr>
       <tr>
         <td style="text-align: left; padding: 20px 0;">
-          <el-radio-group v-model="elder.wash">
+          <el-radio-group v-model="detail.wash">
             <el-radio label="0">1.可自理，独立完成(0分)</el-radio>
             <el-radio label="1">2.轻度依赖，能独立的洗头、梳头、洗脸、刷牙、剃须等；洗澡需要协助(1分)</el-radio>
             <el-radio label="3">3.中度依赖，在协助下和适当的时间内，能完成部分梳洗活动(3分)</el-radio>
@@ -38,7 +38,7 @@
       </tr>
       <tr>
         <td style="text-align: left; padding: 20px 0;">
-          <el-radio-group v-model="elder.wear">
+          <el-radio-group v-model="detail.wear">
             <el-radio label="0">1.可自理，独立完成(0分)</el-radio>
             <el-radio label="0" disabled>2.轻度依赖(0分)</el-radio>
             <el-radio label="3">3.中度依赖，需要协助，在适当的时间内，完成部分穿衣活动(3分)</el-radio>
@@ -51,7 +51,7 @@
       </tr>
       <tr>
         <td style="text-align: left; padding: 20px 0;">
-          <el-radio-group v-model="elder.toilet">
+          <el-radio-group v-model="detail.toilet">
             <el-radio label="0">1.可自理，不需要协助、可自控(0分)</el-radio>
             <el-radio label="1">2.轻度依赖，偶尔失禁、但基本上能如厕或使用便具(1分)</el-radio>
             <el-radio label="5">3.中度依赖，经常失禁，在很多提示和协助下尚能如厕或使用便具(5分)</el-radio>
@@ -64,7 +64,7 @@
       </tr>
       <tr>
         <td style="text-align: left; padding: 20px 0;">
-          <el-radio-group v-model="elder.sport">
+          <el-radio-group v-model="detail.sport">
             <el-radio label="0">1.可自理，独立完成所有活动(0分)</el-radio>
             <el-radio label="1">2.轻度依赖，借助较小的外力或辅助装置能完成站立、行走、上下楼梯等(1分)</el-radio>
             <el-radio label="5">3.中度依赖，借助较大的外力才能完成站立、行走、不能上下楼梯(5分)</el-radio>
@@ -76,9 +76,9 @@
         <td><el-button type="primary" round @click="saveData">{{ getResult() }}</el-button></td>
       </tr>
     </table>
-    <table style="display:none">
+    <table style="display: none;">
       <tr>
-        <th colspan="6">{{ elder.patient.real_name }}, {{ elder.patient.gender }}, {{ elder.exam.age }}, {{ elder.patient.idcard_no }}, {{ elder.exam.region_name }}</th>
+        <th colspan="6">{{ detail.patient.real_name }}, {{ detail.patient.gender }}, {{ detail.exam.age }}, {{ detail.patient.idcard_no }}, {{ detail.exam.region_name }}</th>
       </tr>
       <tr>
         <th rowspan="3">评估事项、内容与评分</th>
@@ -96,82 +96,82 @@
       <tr>
         <th>(1)进餐：使用餐具将饭菜送入口、咀嚼、吞咽等活动</th>
         <td>
-          <el-radio v-model="elder.eat" label="0">独立完成<br>0分</el-radio>
+          <el-radio v-model="detail.eat" label="0">独立完成<br>0分</el-radio>
         </td>
         <td>
           <el-radio disabled label="0">——<br>0分</el-radio>
         </td>
         <td>
-          <el-radio v-model="elder.eat" label="3">需要协助，如切碎、搅拌食物等<br>3分</el-radio>
+          <el-radio v-model="detail.eat" label="3">需要协助，如切碎、搅拌食物等<br>3分</el-radio>
         </td>
         <td>
-          <el-radio v-model="elder.eat" label="5">完全需要帮助<br>5分</el-radio>
+          <el-radio v-model="detail.eat" label="5">完全需要帮助<br>5分</el-radio>
         </td>
-        <td>{{ elder.eat }}</td>
+        <td>{{ detail.eat }}</td>
       </tr>
       <tr>
         <th>(2)梳洗：梳头、洗脸、刷牙、剃须、洗澡等活动</th>
         <td>
-          <el-radio label="0">独立完成<br>0分</el-radio>
+          <el-radio v-model="detail.wash" label="0">独立完成<br>0分</el-radio>
         </td>
         <td>
-          <el-radio label="1">能独立的洗头、梳头、洗脸、刷牙、剃须等；洗澡需要协助<br>1分</el-radio>
+          <el-radio v-model="detail.wash" label="1">能独立的洗头、梳头、洗脸、刷牙、剃须等；洗澡需要协助<br>1分</el-radio>
         </td>
         <td>
-          <el-radio label="3">在协助下和适当的时间内，能完成部分梳洗活动<br>3分</el-radio>
+          <el-radio v-model="detail.wash" label="3">在协助下和适当的时间内，能完成部分梳洗活动<br>3分</el-radio>
         </td>
         <td>
-          <el-radio label="7">完全需要帮助<br>7分</el-radio>
+          <el-radio v-model="detail.wash" label="7">完全需要帮助<br>7分</el-radio>
         </td>
-        <td>{{ elder.wash }}</td>
+        <td>{{ detail.wash }}</td>
       </tr>
       <tr>
         <th>(3)穿衣：穿衣裤、袜子、鞋子等活动</th>
         <td>
-          <el-radio label="0">独立完成<br>0分</el-radio>
+          <el-radio v-model="detail.wear" label="0">独立完成<br>0分</el-radio>
         </td>
         <td>
-          <el-radio disabled label="0">——<br>0分</el-radio>
+          <el-radio v-model="detail.wear" disabled label="0">——<br>0分</el-radio>
         </td>
         <td>
-          <el-radio label="3">需要协助，在适当的时间内，完成部分穿衣活动<br>3分</el-radio>
+          <el-radio v-model="detail.wear" label="3">需要协助，在适当的时间内，完成部分穿衣活动<br>3分</el-radio>
         </td>
         <td>
-          <el-radio label="5">完全需要帮助<br>5分</el-radio>
+          <el-radio v-model="detail.wear" label="5">完全需要帮助<br>5分</el-radio>
         </td>
-        <td>{{ elder.wear }}</td>
+        <td>{{ detail.wear }}</td>
       </tr>
       <tr>
         <th>(4)如厕：小便、大便等活动及自控</th>
         <td>
-          <el-radio label="0">不需要协助、可自控<br>0分</el-radio>
+          <el-radio v-model="detail.toilet" label="0">不需要协助、可自控<br>0分</el-radio>
         </td>
         <td>
-          <el-radio label="1">偶尔失禁、但基本上能如厕或使用便具<br>1分</el-radio>
+          <el-radio v-model="detail.toilet" label="1">偶尔失禁、但基本上能如厕或使用便具<br>1分</el-radio>
         </td>
         <td>
-          <el-radio label="5">经常失禁，在很多提示和协助下尚能如厕或使用便具<br>5分</el-radio>
+          <el-radio v-model="detail.toilet" label="5">经常失禁，在很多提示和协助下尚能如厕或使用便具<br>5分</el-radio>
         </td>
         <td>
-          <el-radio label="10">完全失禁、完全需要帮助<br>10分</el-radio>
+          <el-radio v-model="detail.toilet" label="10">完全失禁、完全需要帮助<br>10分</el-radio>
         </td>
-        <td>{{ elder.toilet }}</td>
+        <td>{{ detail.toilet }}</td>
       </tr>
       <tr>
         <th>(5)活动：站立、室内行走、上下楼梯、户外活动</th>
         <td>
-          <el-radio v-model="elder.sport" label="0">独立完成所有活动<br>0分</el-radio>
+          <el-radio v-model="detail.sport" label="0">独立完成所有活动<br>0分</el-radio>
         </td>
         <td>
-          <el-radio v-model="elder.sport" label="1">借助较小的外力或辅助装置能完成站立、行走、上下楼梯等<br>1分</el-radio>
+          <el-radio v-model="detail.sport" label="1">借助较小的外力或辅助装置能完成站立、行走、上下楼梯等<br>1分</el-radio>
         </td>
         <td>
-          <el-radio v-model="elder.sport" label="5">借助较大的外力才能完成站立、行走、不能上下楼梯<br>5分</el-radio>
+          <el-radio v-model="detail.sport" label="5">借助较大的外力才能完成站立、行走、不能上下楼梯<br>5分</el-radio>
         </td>
         <td>
-          <el-radio v-model="elder.sport" label="10">卧床不起，活动完全需要帮助<br>10分</el-radio>
+          <el-radio v-model="detail.sport" label="10">卧床不起，活动完全需要帮助<br>10分</el-radio>
         </td>
-        <td>{{ elder.sport }}</td>
+        <td>{{ detail.sport }}</td>
       </tr>
       <tr>
         <th>总评分</th>
@@ -259,16 +259,20 @@ export default {
   },
   data() {
     return {
-      elder: {},
+      detail: {
+        exam: {},
+        patient: {},
+        user: {}
+      },
       loading: true
     }
   },
   computed: {
     score: function() {
-      return this.elder.eat * 1 + this.elder.wash * 1 + this.elder.wear * 1 + this.elder.toilet * 1 + this.elder.sport * 1
+      return this.detail.eat * 1 + this.detail.wash * 1 + this.detail.wear * 1 + this.detail.toilet * 1 + this.detail.sport * 1
     },
     result: function() {
-      var score = this.elder.eat * 1 + this.elder.wash * 1 + this.elder.wear * 1 + this.elder.toilet * 1 + this.elder.sport * 1
+      var score = this.detail.eat * 1 + this.detail.wash * 1 + this.detail.wear * 1 + this.detail.toilet * 1 + this.detail.sport * 1
       if (score >= 19) {
         return '不能自理'
       } else if (score >= 9) {
@@ -288,7 +292,7 @@ export default {
       this.loading = true
       var query = this.$route.query
       read({ key: query.key }).then(response => {
-        this.elder = response.data
+        this.detail = response.data
         this.loading = false
       })
     },
@@ -296,7 +300,7 @@ export default {
       return '提交：(' + this.result + '，' + this.score + ')'
     },
     saveData() {
-      save(this.elder, { key: this.elder.elder_key }).then(response => {
+      save(this.detail, { key: this.detail.elder_key }).then(response => {
         this.$message(response.message)
         this.loading = false
       })

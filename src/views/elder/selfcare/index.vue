@@ -14,7 +14,7 @@
       <el-table-column align="center" type="selection" width="60" />
       <el-table-column align="center" label="体检号">
         <template slot-scope="scope">
-          <span @click="readData(scope.row.elder_key)">{{ scope.row.exam.exam_no }}</span>
+          <span @click="showData(scope.row.elder_key)">{{ scope.row.exam.exam_no }}</span>
         </template>
       </el-table-column>
       <el-table-column align="center" label="姓名">
@@ -88,7 +88,7 @@ export default {
         this.listLoading = false
       })
     },
-    readData(key) {
+    showData(key) {
       this.$message(key)
       this.$router.push({ name: 'elder.selfcare.save', query: { key: key }})
     }

@@ -76,9 +76,9 @@ export const constantRoutes = [
         component: () => import('@/views/exam/index')
       },
       {
-        name: 'exam.elder.add',
+        name: 'exam.elder.save',
         meta: { title: '老年人登记', icon: 'el-icon-edit-outline' },
-        path: 'elder/add',
+        path: 'elder/save',
         component: () => import('@/views/exam/elder/add')
       },
       {
@@ -206,6 +206,13 @@ export const constantRoutes = [
         name: 'coronary',
         meta: { title: '冠心病', icon: 'el-icon-document' },
         path: 'coronary',
+        hidden: true,
+        component: () => import('@/views/table/index')
+      },
+      {
+        name: 'copd',
+        meta: { title: '慢阻肺', icon: 'el-icon-document' },
+        path: 'copd',
         hidden: true,
         component: () => import('@/views/table/index')
       }
@@ -432,10 +439,10 @@ export const constantRoutes = [
         component: () => import('@/views/patient/elder/index')
       },
       {
-        name: 'patient.add',
+        name: 'patient.elder.save',
         meta: { title: '新建档案', icon: 'user' },
         path: 'add',
-        component: () => import('@/views/patient/add')
+        component: () => import('@/views/patient/elder/save')
       },
       {
         name: 'patient.upload',
@@ -479,16 +486,16 @@ export const constantRoutes = [
     children: [
       {
         name: 'region.index',
-        meta: { title: '辖内属地', icon: 'el-icon-setting' },
+        meta: { title: '所属区域', icon: 'el-icon-setting' },
         path: 'region',
         component: () => import('@/views/region/index')
       },
       {
         name: 'region.save',
-        meta: { title: '所属地设置', icon: 'el-icon-setting' },
+        meta: { title: '所属设置', icon: 'el-icon-setting' },
         path: 'region/save',
         hidden: true,
-        component: () => import('@/views/nested/menu2/index')
+        component: () => import('@/views/region/save')
       },
       {
         name: 'org.index',
@@ -500,19 +507,32 @@ export const constantRoutes = [
         name: 'org.save',
         meta: { title: '机构设置', icon: 'el-icon-setting' },
         path: 'org',
-        component: () => import('@/views/nested/menu2/index')
+        component: () => import('@/views/org/save')
       },
       {
         name: 'office.index',
         meta: { title: '科室设置', icon: 'el-icon-setting' },
         path: 'office',
-        component: () => import('@/views/nested/menu2/index')
+        component: () => import('@/views/office/index')
+      },
+      {
+        name: 'office.save',
+        meta: { title: '科室详情', icon: 'el-icon-setting' },
+        path: 'office/save',
+        hidden: true,
+        component: () => import('@/views/office/save')
       },
       {
         name: 'user.index',
         meta: { title: '用户管理', icon: 'el-icon-setting' },
         path: 'user',
-        component: () => import('@/views/nested/menu2/index')
+        component: () => import('@/views/user/index')
+      },
+      {
+        name: 'user.save',
+        meta: { title: '个人资料', icon: 'el-icon-setting' },
+        path: 'user/save',
+        component: () => import('@/views/user/save')
       },
       {
         name: 'package',
@@ -532,6 +552,13 @@ export const constantRoutes = [
         meta: { title: '组合设置', icon: 'el-icon-setting' },
         path: 'combo',
         component: () => import('@/views/combo/index')
+      },
+      {
+        name: 'combo.item',
+        meta: { title: '组合项目', icon: 'el-icon-setting' },
+        path: 'combo/item',
+        hidden: true,
+        component: () => import('@/views/combo/item')
       },
       {
         name: 'combo.save',

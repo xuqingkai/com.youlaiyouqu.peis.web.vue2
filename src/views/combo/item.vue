@@ -15,31 +15,39 @@
       highlight-current-row
     >
       <el-table-column align="center" type="selection" width="60" />
-      <el-table-column align="center" label="名称">
-        <template slot-scope="scope">
-          <el-link @click="showData(scope.row.combo_key)">{{ scope.row.name }}</el-link>
-        </template>
-      </el-table-column>
       <el-table-column align="center" label="代码">
         <template slot-scope="scope">
-          {{ scope.row.code }}
+          {{ scope.row.item_key }}
         </template>
       </el-table-column>
-      <el-table-column align="center" label="排序">
+      <el-table-column align="center" label="英文名">
         <template slot-scope="scope">
-          {{ scope.row.sortid }}
+          <el-input v-model="scope.row.item_code" />
         </template>
       </el-table-column>
-      <el-table-column align="center" label="备注">
+      <el-table-column align="center" label="名称">
         <template slot-scope="scope">
-          {{ scope.row.remark }}
+          <el-input v-model="scope.row.item_name" />
         </template>
       </el-table-column>
-      <el-table-column label="详情" width="55" type="expand">
+      <el-table-column align="center" label="别称">
         <template slot-scope="scope">
-          <span v-for="(item, index) in scope.row.item" :key="'item' + index">
-            {{ item.name }}【{{ item.code }}】
-          </span>
+          <el-input v-model="scope.row.alias_name" />
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="单位" width="auto">
+        <template slot-scope="scope">
+          <el-input v-model="scope.row.unit_name" style="width: 80px" />
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="正常值下限">
+        <template slot-scope="scope">
+          <el-input v-model="scope.row.min_normal_value" style="width: 100px" />
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="正常值上限">
+        <template slot-scope="scope">
+          <el-input v-model="scope.row.max_normal_value" style="width: 100px" />
         </template>
       </el-table-column>
       <el-table-column align="center" label="操作">
@@ -48,7 +56,6 @@
             <el-button size="small" icon="el-icon-top" />
             <el-button size="small" icon="el-icon-bottom" />
             <el-button type="primary" size="small" icon="el-icon-edit" @click="showData(scope.row.combo_key)" />
-            <el-button type="primary" size="small" icon="el-icon-s-operation" @click="listItem(scope.row.combo_key)" />
             <el-button type="danger" size="small" icon="el-icon-delete" @click="deleteData(scope.row.combo_key)" />
           </el-button-group>
         </template>
@@ -73,7 +80,8 @@ export default {
   },
   data() {
     return {
-      list: null,
+      detail: [],
+      list: [],
       listLoading: true
     }
   },
@@ -83,16 +91,13 @@ export default {
   methods: {
     listData() {
       this.listLoading = true
-      api.combo.list({ item: 1 }).then(response => {
-        this.list = response.data
+      api.combo.read({ key: this.$route.query.key, item: 1 }).then(response => {
+        this.detail = response.data
+        this.list = response.data.item
         this.listLoading = false
       })
     },
     showData(key) {
-      this.$message(key)
-      this.$router.push({ name: 'combo.save', query: { key: key }})
-    },
-    listItem(key) {
       this.$message(key)
       this.$router.push({ name: 'combo.item', query: { key: key }})
     },
