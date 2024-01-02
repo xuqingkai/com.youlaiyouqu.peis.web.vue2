@@ -8,7 +8,6 @@
       :data="list"
       element-loading-text="Loading"
       :stripe="true"
-      height="800"
       max-height="800"
       border
       fit
@@ -58,6 +57,7 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-pagination layout="prev, pager, next" :page-size="per_page" :total="total" :current-page="current_page" @current-change="loadData" />
   </div>
 </template>
 
@@ -77,18 +77,22 @@ export default {
   },
   data() {
     return {
-      list: null,
-      listLoading: true
+      total: 0,
+      per_page: 0,
+      current_page: 0,
+      list: [],
+      listLoading: false
     }
   },
   created() {
-    this.listData()
+    this.loadData()
   },
   methods: {
-    listData() {
+    loadData(page) {
+      this.current_page = page
       this.listLoading = true
-      api.pkg.list({ combo: 1 }).then(response => {
-        this.list = response.data
+      api.pkg.list({ combo: 1, page: this.current_page, page_size: this.per_page }).then(response => {
+        this.list = response.data.data
         this.listLoading = false
       })
     },

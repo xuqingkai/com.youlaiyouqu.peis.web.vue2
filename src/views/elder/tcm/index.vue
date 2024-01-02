@@ -5,7 +5,6 @@
       :data="list"
       element-loading-text="Loading"
       :stripe="true"
-      height="800"
       max-height="800"
       border
       fit
@@ -51,9 +50,9 @@
         <template slot-scope="scope">{{ scope.row.tcm_result }}</template>
       </el-table-column>
     </el-table>
+    <el-pagination layout="prev, pager, next" :page-size="per_page" :total="total" :current-page="current_page" @current-change="loadData" />
   </div>
 </template>
-
 <script>
 import { query } from '@/api/elder_tcm'
 
@@ -70,18 +69,22 @@ export default {
   },
   data() {
     return {
-      list: null,
+      total: 0,
+      per_page: 0,
+      current_page: 0,
+      list: [],
       listLoading: true
     }
   },
   created() {
-    this.listData()
+    this.loadData()
   },
   methods: {
-    listData() {
+    loadData(page) {
+      this.current_page = page
       this.listLoading = true
-      query().then(response => {
-        this.list = response.data
+      query({ page: this.current_page, page_size: this.per_page }).then(response => {
+        this.list = response.data.data
         this.listLoading = false
       })
     },

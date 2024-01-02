@@ -5,7 +5,6 @@
       :data="list"
       element-loading-text="Loading"
       :stripe="true"
-      height="800"
       max-height="800"
       border
       fit
@@ -62,6 +61,7 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-pagination layout="prev, pager, next" :page-size="per_page" :total="total" :current-page="current_page" @current-change="loadData" />
   </div>
 </template>
 
@@ -81,6 +81,9 @@ export default {
   },
   data() {
     return {
+      total: 0,
+      per_page: 0,
+      current_page: 0,
       list: [],
       listLoading: true
     }
@@ -89,10 +92,14 @@ export default {
     this.loadData()
   },
   methods: {
-    loadData() {
+    loadData(page) {
+      this.current_page = page
       this.listLoading = true
-      api.exam.elder.list().then(response => {
-        this.list = response.data
+      api.exam.elder.list({ page: this.current_page, page_size: this.per_page }).then(response => {
+        this.total = response.data.total
+        this.per_page = response.data.per_page
+        this.current_page = response.data.current_page
+        this.list = response.data.data
         this.listLoading = false
       })
     },

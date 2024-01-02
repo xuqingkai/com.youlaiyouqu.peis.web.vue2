@@ -4,11 +4,10 @@
       <el-button type="primary" @click="showData('')">新建</el-button>
     </el-button-group>
     <el-table
-      v-loading="listLoading"
+      v-loading="loading"
       :data="list"
       element-loading-text="Loading"
       :stripe="true"
-      height="800"
       max-height="800"
       border
       fit
@@ -63,6 +62,7 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-pagination layout="prev, pager, next" :page-size="per_page" :total="total" :current-page="current_page" @current-change="loadData" />
   </div>
 </template>
 
@@ -82,19 +82,23 @@ export default {
   },
   data() {
     return {
-      list: null,
-      listLoading: true
+      total: 0,
+      per_page: 0,
+      current_page: 0,
+      list: [],
+      loading: true
     }
   },
   created() {
-    this.listData()
+    this.loadData()
   },
   methods: {
-    listData() {
-      this.listLoading = true
-      query().then(response => {
-        this.list = response.data
-        this.listLoading = false
+    loadData(page) {
+      this.current_page = page
+      this.loading = true
+      query({ page: this.current_page, page_size: this.per_page }).then(response => {
+        this.list = response.data.data
+        this.loading = false
       })
     },
     showData(key) {
