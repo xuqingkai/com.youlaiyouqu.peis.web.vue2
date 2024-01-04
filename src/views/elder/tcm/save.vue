@@ -166,11 +166,11 @@
       </tr>
       <tr>
         <td colspan="5">(19) 您的皮肤在不知不觉中会出现青紫瘀斑、皮下出血吗?(指皮肤在没有外伤的情况下出现青一块紫一块的情况) </td>
-        <td><el-radio v-model="detail.qq19" label="1" /></td>
-        <td><el-radio v-model="detail.qq19" label="2" /></td>
-        <td><el-radio v-model="detail.qq19" label="3" /></td>
-        <td><el-radio v-model="detail.qq19" label="4" /></td>
-        <td><el-radio v-model="detail.qq19" label="5" /></td>
+        <td><el-radio v-model="detail.q19" label="1" /></td>
+        <td><el-radio v-model="detail.q19" label="2" /></td>
+        <td><el-radio v-model="detail.q19" label="3" /></td>
+        <td><el-radio v-model="detail.q19" label="4" /></td>
+        <td><el-radio v-model="detail.q19" label="5" /></td>
       </tr>
       <tr>
         <td colspan="5">(20) 您的皮肤一抓就红，并出现抓痕吗?(指被指甲或钝物划过后皮肤的反应) </td>
