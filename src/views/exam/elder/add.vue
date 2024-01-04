@@ -8,7 +8,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="体检套餐">
-        <el-select v-model="detail.package" placeholder="请选择">
+        <el-select v-model="detail.package_code" placeholder="请选择">
           <el-option label="老年人公卫" value="elder" />
         </el-select>
       </el-form-item>
@@ -57,10 +57,10 @@
         <el-input v-model="detail.mobiphone" />
       </el-form-item>
       <el-form-item label="联系人姓名">
-        <el-input v-model="detail.patient.contact1_name" />
+        <el-input v-model="detail.contact_name" />
       </el-form-item>
       <el-form-item label="联系人电话">
-        <el-input v-model="detail.patient.contact1_phone" />
+        <el-input v-model="detail.telephone" />
       </el-form-item>
     </el-form>
     <el-form ref="form" label-width="120px">
@@ -70,13 +70,12 @@
     </el-form>
     <el-form ref="form" label-width="120px">
       <el-form-item label="慢病管理">
-        <el-checkbox-group v-model="detail.patient.chronic_disease">
-          <el-checkbox label="hypertension" name="type">高血压</el-checkbox>
-          <el-checkbox label="diabetes" name="type">糖尿病</el-checkbox>
-          <el-checkbox label="phthisis" name="type">肺结核</el-checkbox>
-          <el-checkbox label="psychosis" name="type">精神病</el-checkbox>
-          <el-checkbox label="apoplexy" name="type">脑卒中</el-checkbox>
-        </el-checkbox-group>
+          <el-checkbox v-model="detail.hypertension" true-label="1" false-label="0">高血压</el-checkbox>
+          <el-checkbox v-model="detail.diabetes" true-label="1" false-label="0">糖尿病</el-checkbox>
+          <el-checkbox v-model="detail.phthisis" true-label="1" false-label="0">肺结核</el-checkbox>
+          <el-checkbox v-model="detail.psychosis" true-label="1" false-label="0">精神病</el-checkbox>
+          <el-checkbox v-model="detail.coronary" true-label="1" false-label="0">冠心病</el-checkbox>
+          <el-checkbox v-model="detail.apoplexy" true-label="1" false-label="0">脑卒中</el-checkbox>
       </el-form-item>
     </el-form>
     <el-form ref="form" label-width="120px">
@@ -111,10 +110,9 @@ export default {
       detail: {
         type: 'elder',
         package: 'elder',
+        hypertension: false,
         user_key: '',
-        patient: {
-          chronic_disease: []
-        }
+        patient: { }
       }
     }
   },
