@@ -303,48 +303,48 @@
         <td>体质辨识</td>
         <td>
           1.得分<el-input v-model="detail.qixu_score" size="mini" style="width: 30px" /><br>
-          2.<el-radio v-model="detail.qixu" label="2">是</el-radio><br>
-          3.<el-radio v-model="detail.qixu" label="3">倾向是</el-radio>
+          2.<el-radio v-model="detail.qixu" label="是">是</el-radio><br>
+          3.<el-radio v-model="detail.qixu" label="倾向是">倾向是</el-radio>
         </td>
         <td>
           1.得分<el-input v-model="detail.yangxu_score" size="mini" style="width: 30px" /><br>
-          2.<el-radio v-model="detail.yangxu" label="2">是</el-radio><br>
-          3.<el-radio v-model="detail.yangxu" label="3">倾向是</el-radio>
+          2.<el-radio v-model="detail.yangxu" label="是">是</el-radio><br>
+          3.<el-radio v-model="detail.yangxu" label="倾向是">倾向是</el-radio>
         </td>
         <td>
           1.得分<el-input v-model="detail.yinxu_score" size="mini" style="width: 30px" /><br>
-          2.<el-radio v-model="detail.yinxu" label="2">是</el-radio><br>
-          3.<el-radio v-model="detail.yinxu" label="3">倾向是</el-radio>
+          2.<el-radio v-model="detail.yinxu" label="是">是</el-radio><br>
+          3.<el-radio v-model="detail.yinxu" label="倾向是">倾向是</el-radio>
         </td>
         <td>
           1.得分<el-input v-model="detail.tanshi_score" size="mini" style="width: 30px" /><br>
-          2.<el-radio v-model="detail.tanshi" label="2">是</el-radio><br>
-          3.<el-radio v-model="detail.tanshi" label="3">倾向是</el-radio>
+          2.<el-radio v-model="detail.tanshi" label="是">是</el-radio><br>
+          3.<el-radio v-model="detail.tanshi" label="倾向是">倾向是</el-radio>
         </td>
         <td>
           1.得分<el-input v-model="detail.shire_score" size="mini" style="width: 30px" /><br>
-          2.<el-radio v-model="detail.shire" label="2">是</el-radio><br>
-          3.<el-radio v-model="detail.shire" label="3">倾向是</el-radio>
+          2.<el-radio v-model="detail.shire" label="是">是</el-radio><br>
+          3.<el-radio v-model="detail.shire" label="倾向是">倾向是</el-radio>
         </td>
         <td>
           1.得分<el-input v-model="detail.xueyu_score" size="mini" style="width: 30px" /><br>
-          2.<el-radio v-model="detail.xueyu" label="2">是</el-radio><br>
-          3.<el-radio v-model="detail.xueyu" label="3">倾向是</el-radio>
+          2.<el-radio v-model="detail.xueyu" label="是">是</el-radio><br>
+          3.<el-radio v-model="detail.xueyu" label="倾向是">倾向是</el-radio>
         </td>
         <td>
           1.得分<el-input v-model="detail.qiyu_score" size="mini" style="width: 30px" /><br>
-          2.<el-radio v-model="detail.qiyu" label="2">是</el-radio><br>
-          3.<el-radio v-model="detail.qiyu" label="3">倾向是</el-radio>
+          2.<el-radio v-model="detail.qiyu" label="是">是</el-radio><br>
+          3.<el-radio v-model="detail.qiyu" label="倾向是">倾向是</el-radio>
         </td>
         <td>
           1.得分<el-input v-model="detail.tebing_score" size="mini" style="width: 30px" /><br>
-          2.<el-radio v-model="detail.tebing" label="2">是</el-radio><br>
-          3.<el-radio v-model="detail.tebing" label="3">倾向是</el-radio>
+          2.<el-radio v-model="detail.tebing" label="是">是</el-radio><br>
+          3.<el-radio v-model="detail.tebing" label="倾向是">倾向是</el-radio>
         </td>
         <td>
           1.得分<el-input v-model="detail.pinghe_score" size="mini" style="width: 30px" /><br>
-          2.<el-radio v-model="detail.pinghe" label="2">是</el-radio><br>
-          3.<el-radio v-model="detail.pinghe" label="3">倾向是</el-radio>
+          2.<el-radio v-model="detail.pinghe" label="是">是</el-radio><br>
+          3.<el-radio v-model="detail.pinghe" label="倾向是">倾向是</el-radio>
         </td>
       </tr>
       <tr>
@@ -450,9 +450,9 @@
         </td>
       </tr>
       <tr>
-        <td colspan="2">填表日期</td>
+        <td colspan="2">填表日期{{ score }}</td>
         <td colspan="3"><el-date-picker v-model="detail.create_date" type="date" size="mini" style=" width: 130px" /></td>
-        <td colspan="2">医生签名</td>
+        <td colspan="2" @click="tcm">医生签名</td>
         <td colspan="3"><el-input v-model="detail.user.real_name" size="mini" style="width:150px" /></td>
       </tr>
       <tr>
@@ -561,6 +561,7 @@ export default {
   },
   computed: {
     score: function() {
+      this.tcm()
       return this.detail.id
     }
   },
@@ -568,6 +569,107 @@ export default {
     this.readData()
   },
   methods: {
+    tcm() {
+      var answer = []
+      for (var i = 1; i <= 33; i++) {
+        answer.push(this.detail['q' + i])
+      }
+      var tizhi = this.tcm33(answer)
+      for (var j in tizhi) {
+        this.detail[tizhi[j].code] = tizhi[j].result
+        this.detail[tizhi[j].code + '_score'] = tizhi[j].score
+      }
+    },
+    tcm33(answer) {
+      var tizhi = [{
+        code: 'qixu',
+        name: '气虚质',
+        question: [1, 2, 3, 13],
+        score: 0,
+        result: ''
+      }, {
+        code: 'yangxu',
+        name: '阳虚质',
+        question: [10, 11, 12, 28],
+        score: 0,
+        result: ''
+      }, {
+        code: 'yinxu',
+        name: '阴虚质',
+        question: [9, 20, 25, 30],
+        score: 0,
+        result: ''
+      }, {
+        code: 'tanshi',
+        name: '痰湿质',
+        question: [8, 15, 27, 31],
+        score: 0,
+        result: ''
+      }, {
+        code: 'shire',
+        name: '湿热质',
+        question: [22, 24, 26, 29],
+        score: 0,
+        result: ''
+      }, {
+        code: 'xueyu',
+        name: '血瘀质',
+        question: [18, 21, 23, 32],
+        score: 0,
+        result: ''
+      }, {
+        code: 'qiyu',
+        name: '气郁质',
+        question: [4, 5, 6, 7],
+        score: 0,
+        result: ''
+      }, {
+        code: 'tebing',
+        name: '特禀质',
+        question: [14, 16, 17, 19],
+        score: 0,
+        result: ''
+      }, {
+        code: 'pinghe',
+        name: '平和质',
+        question: [0, 1, 3, 4, 12],
+        score: 0,
+        result: ''
+      }]
+      var other_like = false
+      var other_yes = false
+      for (var i in tizhi) {
+        for (var j in tizhi[i].question) {
+          if (i === 8 && tizhi[i].question[j] !== 0) {
+            tizhi[i].score += 6 - parseInt(answer[tizhi[i].question[j]])
+          } else {
+            tizhi[i].score += parseInt(answer[tizhi[i].question[j]])
+          }
+        }
+        if (i < 8) {
+          if (tizhi[i].score >= 11) {
+            tizhi[i].result = '是'
+            other_yes = true
+          } else if (tizhi[i].score >= 9) {
+            tizhi[i].result = '倾向是'
+            other_like = true
+          }
+        } else {
+          // 在平和质得分>=17的前提下
+          if (tizhi[i].score >= 17) {
+            // 如果没有一个是的，说明其他得分均<=10，至少基本是平和质，否则肯定不是平和质
+            if (!other_yes) {
+              tizhi[i].result = '基本是'
+              // 如果连一个倾向是的都没有，说明其他得分均<=8，肯定是平和质
+              if (!other_like) {
+                tizhi[i].result = '是'
+              }
+            }
+          }
+        }
+      }
+      return tizhi
+    },
     readData() {
       this.loading = true
       var query = this.$route.query
