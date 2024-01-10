@@ -14,6 +14,13 @@
       </el-form-item>
     </el-form>
     <el-form ref="form" label-width="120px">
+      <el-form-item label="医生">
+        <el-checkbox-group v-model="detail.users_keys">
+          <el-checkbox v-for="doctor in doctors" :key="doctor.id" :label="doctor.user_key">{{ doctor.nick_name }}</el-checkbox>
+        </el-checkbox-group>
+      </el-form-item>
+    </el-form>
+    <el-form ref="form" label-width="120px">
       <el-form-item label="项目">
         <el-transfer
           v-model="detail.item_keys"
@@ -46,21 +53,33 @@ export default {
         code: '',
         name: '',
         sortid: 0,
+        user_keys: [],
         item_keys: [],
         remark: ''
       },
-      item_list: []
+      item_list: [],
+      doctors: [{}]
     }
   },
   created() {
     this.loadItem()
+    this.loadDoctors()
     this.readData()
   },
   methods: {
     loadItem() {
       this.loading = true
       api.item.list({ page_size: 9999 }).then(response => {
-        this.item_list = response.data.map(item => ({ key: item.item_key, label: '' + item.name + '(' + item.code + ')' }))
+        this.item_list = response.data.data.map(item => ({ key: item.item_key, label: '' + item.name + '(' + item.code + ')' }))
+      })
+    },
+    loadDoctors() {
+      api.user.list({ page_size: 11111 }).then(response => {
+        if (response.code !== 'SUCCESS') {
+          this.$message.error(response.message)
+        } else {
+          this.doctors = response.data.data
+        }
       })
     },
     readData() {

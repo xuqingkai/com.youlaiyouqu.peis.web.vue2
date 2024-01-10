@@ -76,8 +76,8 @@ export default {
   methods: {
     loadCombo() {
       this.loading = true
-      api.combo.list().then(response => {
-        this.combo_list = response.data.map(item => ({ key: item.combo_key, label: '' + item.name + '(' + item.code + ')' }))
+      api.combo.list({ page_size: 9999}).then(response => {
+        this.combo_list = response.data.data.map(item => ({ key: item.combo_key, label: '' + item.name + '(' + item.code + ')' }))
         this.loading = false
       })
     },

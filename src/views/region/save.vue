@@ -46,11 +46,11 @@ export default {
   },
   methods: {
     initData() {
-      api.user.list().then(response => {
+      api.user.list({ page_size: 9999 }).then(response => {
         if (response.code !== 'SUCCESS') {
           this.$message.error(response.message)
         } else {
-          this.$data.doctors = response.data
+          this.$data.doctors = response.data.data
         }
       })
     },

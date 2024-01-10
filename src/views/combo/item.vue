@@ -93,7 +93,7 @@ export default {
       this.listLoading = true
       api.combo.read({ key: this.$route.query.key, item: 1 }).then(response => {
         this.detail = response.data
-        this.list = response.data.item
+        this.list = response.data.data
         this.listLoading = false
       })
     },
