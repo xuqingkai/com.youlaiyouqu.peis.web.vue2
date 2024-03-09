@@ -52,7 +52,7 @@
             <el-button size="small" icon="el-icon-top" />
             <el-button size="small" icon="el-icon-bottom" />
             <el-button type="primary" size="small" icon="el-icon-edit" @click="showData(scope.row.package_key)" />
-            <el-button type="danger" size="small" icon="el-icon-delete" />
+            <el-button type="danger" size="small" icon="el-icon-delete" @click="deleteData(scope.row.package_key)" />
           </el-button-group>
         </template>
       </el-table-column>
@@ -99,6 +99,14 @@ export default {
     showData(key) {
       this.$message(key)
       this.$router.push({ name: 'package.save', query: { key: key }})
+    },
+    deleteData(key) {
+      api.pkg.delete({ keys: key }).then(response => {
+        this.$message(response.message)
+        if (response.id === 0) {
+          window.location.reload(true)
+        }
+      })
     }
   }
 }

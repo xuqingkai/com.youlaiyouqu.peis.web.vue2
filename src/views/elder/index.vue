@@ -26,7 +26,7 @@
       </el-table-column>
       <el-table-column align="center" label="性别">
         <template slot-scope="scope">
-          {{ scope.row.exam.gender }}
+          {{ scope.row.patient.gender }}
         </template>
       </el-table-column>
       <el-table-column align="center" label="年龄">

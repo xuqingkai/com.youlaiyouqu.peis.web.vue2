@@ -554,11 +554,11 @@ export const constantRoutes = [
         component: () => import('@/views/combo/index')
       },
       {
-        name: 'combo.item',
+        name: 'combo.items',
         meta: { title: '组合项目', icon: 'el-icon-setting' },
-        path: 'combo/item',
+        path: 'combo/items',
         hidden: true,
-        component: () => import('@/views/combo/item')
+        component: () => import('@/views/combo/items')
       },
       {
         name: 'combo.save',

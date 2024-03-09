@@ -42,12 +42,12 @@
       </el-table-column>
       <el-table-column align="center" label="正常值下限">
         <template slot-scope="scope">
-          <el-input v-model="scope.row.min_normal_value" style="width: 100px" />
+          <el-input v-model="scope.row.min_normal" style="width: 100px" />
         </template>
       </el-table-column>
       <el-table-column align="center" label="正常值上限">
         <template slot-scope="scope">
-          <el-input v-model="scope.row.max_normal_value" style="width: 100px" />
+          <el-input v-model="scope.row.max_normal" style="width: 100px" />
         </template>
       </el-table-column>
       <el-table-column align="center" label="操作">
@@ -55,8 +55,8 @@
           <el-button-group>
             <el-button size="small" icon="el-icon-top" />
             <el-button size="small" icon="el-icon-bottom" />
-            <el-button type="primary" size="small" icon="el-icon-edit" @click="showData(scope.row.combo_key)" />
-            <el-button type="danger" size="small" icon="el-icon-delete" @click="deleteData(scope.row.combo_key)" />
+            <el-button type="primary" size="small" @click="saveData(scope.row)">存</el-button>
+            <el-button type="danger" size="small" icon="el-icon-delete" @click="deleteData(scope.row.id)" />
           </el-button-group>
         </template>
       </el-table-column>
@@ -91,18 +91,21 @@ export default {
   methods: {
     listData() {
       this.listLoading = true
-      api.combo.read({ key: this.$route.query.key, item: 1 }).then(response => {
+      api.combo.items({ key: this.$route.query.key }).then(response => {
         this.detail = response.data
-        this.list = response.data.data
+        this.list = response.data.items
         this.listLoading = false
       })
     },
-    showData(key) {
-      this.$message(key)
-      this.$router.push({ name: 'combo.item', query: { key: key }})
+    saveData(item) {
+      this.$message(item.combo_key)
+      api.combo.item_save(item, { id: item.id }).then(response => {
+        this.$message(response.message)
+      })
+      this.$router.push({ name: 'combo.items', query: { key: item.combo_key }})
     },
-    deleteData(key) {
-      api.combo.delete({ key: key }).then(response => {
+    deleteData(ids) {
+      api.combo.item_delete({ ids: ids }).then(response => {
         this.$message(response.message)
       })
       this.$router.push({ name: 'combo' })

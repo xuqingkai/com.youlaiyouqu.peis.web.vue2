@@ -76,7 +76,7 @@ export default {
   methods: {
     loadCombo() {
       this.loading = true
-      api.combo.list({ page_size: 9999}).then(response => {
+      api.combo.list({ page_size: 9999 }).then(response => {
         this.combo_list = response.data.data.map(item => ({ key: item.combo_key, label: '' + item.name + '(' + item.code + ')' }))
         this.loading = false
       })
@@ -84,10 +84,12 @@ export default {
     loadData() {
       this.loading = true
       var query = this.$route.query
-      api.pkg.read({ key: query.key, combo: 'keys' }).then(response => {
-        this.detail = response.data
-        this.loading = false
-      })
+      if (query.key) {
+        api.pkg.read({ key: query.key }).then(response => {
+          this.detail = response.data
+          this.loading = false
+        })
+      }
     },
     saveData() {
       api.pkg.save(this.detail, { key: this.detail.package_key }).then(response => {

@@ -345,6 +345,13 @@ export const pkg = {
       params: query,
       data: data
     })
+  },
+  delete: function(query) {
+    return request({
+      url: this.path + '/del',
+      method: 'get',
+      params: query
+    })
   }
 }
 
@@ -376,6 +383,28 @@ export const combo = {
   delete: function(query) {
     return request({
       url: this.path + '/del',
+      method: 'get',
+      params: query
+    })
+  },
+  items: function(query) {
+    return request({
+      url: this.path + '/items',
+      method: 'get',
+      params: query
+    })
+  },
+  item_save: function(data, query) {
+    return request({
+      url: this.path + '/item_save',
+      method: 'post',
+      params: query,
+      data: data
+    })
+  },
+  item_delete: function(query) {
+    return request({
+      url: this.path + '/item_delete',
       method: 'get',
       params: query
     })

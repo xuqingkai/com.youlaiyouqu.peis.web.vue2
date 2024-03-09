@@ -1,5 +1,5 @@
 import { login, logout, getInfo } from '@/api/user'
-import { getToken, setToken, removeToken } from '@/utils/auth'
+import { getToken, setToken, removeToken, setRegionCode } from '@/utils/auth'
 import { resetRouter } from '@/router'
 
 const getDefaultState = () => {
@@ -36,6 +36,7 @@ const actions = {
         const { data } = response
         commit('SET_TOKEN', data.authorization)
         setToken(data.authorization)
+        setRegionCode(data.region_code)
         resolve()
       }).catch(error => {
         reject(error)

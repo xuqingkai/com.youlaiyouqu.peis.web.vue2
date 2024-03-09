@@ -342,10 +342,10 @@ export default {
     },
     addDrugHistory() {
       this.detail.drug_history.push({
-        name: '非洛地平缓释片',
-        usage: '一日3次',
-        dosage: '一次1片',
-        method: '口服'
+        name: '',
+        usage: '',
+        dosage: '',
+        method: ''
       })
     },
     removeDrugHistory(item) {

@@ -15,8 +15,8 @@
     </el-form>
     <el-form ref="form" label-width="120px">
       <el-form-item label="医生">
-        <el-checkbox-group v-model="detail.users_keys">
-          <el-checkbox v-for="doctor in doctors" :key="doctor.id" :label="doctor.user_key">{{ doctor.nick_name }}</el-checkbox>
+        <el-checkbox-group v-model="detail.user_keys">
+          <el-checkbox v-for="item in doctors" :key="item.id" :label="item.user_key">{{ item.nick_name }}</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
     </el-form>
@@ -58,7 +58,7 @@ export default {
         remark: ''
       },
       item_list: [],
-      doctors: [{}]
+      doctors: [{ id: '', user_key: '', nick_name: '' }]
     }
   },
   created() {
@@ -85,9 +85,11 @@ export default {
     readData() {
       this.loading = true
       var query = this.$route.query
-      api.combo.read({ key: query.key, item: 'keys' }).then(response => {
-        this.detail = response.data
-      })
+      if (query.key) {
+        api.combo.read({ key: query.key }).then(response => {
+          this.detail = response.data
+        })
+      }
     },
     saveData() {
       api.combo.save(this.detail, { key: this.$route.query.key }).then(response => {

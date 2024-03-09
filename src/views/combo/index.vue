@@ -98,13 +98,15 @@ export default {
     },
     listItem(key) {
       this.$message(key)
-      this.$router.push({ name: 'combo.item', query: { key: key }})
+      this.$router.push({ name: 'combo.items', query: { key: key }})
     },
-    deleteData(key) {
-      api.combo.delete({ key: key }).then(response => {
+    deleteData(keys) {
+      api.combo.delete({ keys: keys }).then(response => {
         this.$message(response.message)
+        if (response.id === 0) {
+          window.location.reload(true)
+        }
       })
-      this.$router.push({ name: 'combo' })
     }
   }
 }

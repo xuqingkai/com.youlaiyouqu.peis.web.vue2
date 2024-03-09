@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <el-form ref="form" label-width="120px">
-      <el-form-item label="用户名称">
+      <el-form-item label="用户昵称">
         <el-input v-model="detail.nick_name" />
       </el-form-item>
     </el-form>

@@ -70,12 +70,12 @@
     </el-form>
     <el-form ref="form" label-width="120px">
       <el-form-item label="慢病管理">
-          <el-checkbox v-model="detail.hypertension" true-label="1" false-label="0">高血压</el-checkbox>
-          <el-checkbox v-model="detail.diabetes" true-label="1" false-label="0">糖尿病</el-checkbox>
-          <el-checkbox v-model="detail.phthisis" true-label="1" false-label="0">肺结核</el-checkbox>
-          <el-checkbox v-model="detail.psychosis" true-label="1" false-label="0">精神病</el-checkbox>
-          <el-checkbox v-model="detail.coronary" true-label="1" false-label="0">冠心病</el-checkbox>
-          <el-checkbox v-model="detail.apoplexy" true-label="1" false-label="0">脑卒中</el-checkbox>
+        <el-checkbox v-model="detail.hypertension" true-label="1" false-label="0">高血压</el-checkbox>
+        <el-checkbox v-model="detail.diabetes" true-label="1" false-label="0">糖尿病</el-checkbox>
+        <el-checkbox v-model="detail.phthisis" true-label="1" false-label="0">肺结核</el-checkbox>
+        <el-checkbox v-model="detail.psychosis" true-label="1" false-label="0">精神病</el-checkbox>
+        <el-checkbox v-model="detail.coronary" true-label="1" false-label="0">冠心病</el-checkbox>
+        <el-checkbox v-model="detail.apoplexy" true-label="1" false-label="0">脑卒中</el-checkbox>
       </el-form-item>
     </el-form>
     <el-form ref="form" label-width="120px">
@@ -101,6 +101,7 @@
 <script>
 import * as api from '@/api'
 import { parseTime } from '@/utils'
+import { getRegionCode } from '@/utils/auth'
 export default {
   data() {
     return {
@@ -134,7 +135,7 @@ export default {
     },
     loadRegion() {
       api.region.subsets({
-        code: '370831001'
+        code: getRegionCode()
       }).then(response => {
         if (response.code !== 'SUCCESS') {
           this.$message.error(response.message)

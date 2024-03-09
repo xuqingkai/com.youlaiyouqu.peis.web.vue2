@@ -758,7 +758,7 @@
             <el-checkbox label="8.房室传导阻滞" />
             <el-checkbox label="9.其他" />
           </el-checkbox-group>
-          <el-input v-model="detail.ecg_other" size="mini" style="margin-left:10px; width: 200px" />
+          <el-input v-model="detail.ecg_abnormal" size="mini" style="margin-left:10px; width: 200px" />
         </td>
       </tr>
       <tr>
