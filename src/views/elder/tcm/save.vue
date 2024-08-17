@@ -344,7 +344,7 @@
         <td>
           1.得分<el-input v-model="detail.pinghe_score" size="mini" style="width: 30px" /><br>
           2.<el-radio v-model="detail.pinghe" label="是">是</el-radio><br>
-          3.<el-radio v-model="detail.pinghe" label="倾向是">倾向是</el-radio>
+          3.<el-radio v-model="detail.pinghe" label="基本是">基本是</el-radio>
         </td>
       </tr>
       <tr>

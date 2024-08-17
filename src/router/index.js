@@ -109,6 +109,24 @@ export const constantRoutes = [
         component: () => import('@/views/elder/save')
       },
       {
+        name: 'elder.setting',
+        meta: { title: '问卷设置', icon: 'el-icon-document' },
+        path: 'setting',
+        component: () => import('@/views/elder/setting')
+      },
+      {
+        name: 'elder.savenew',
+        meta: { title: '新问卷', icon: 'el-icon-document' },
+        path: 'savenew',
+        component: () => import('@/views/elder/save-new')
+      },
+      {
+        name: 'elder.savesd',
+        meta: { title: '山东卷', icon: 'el-icon-document' },
+        path: 'savesd',
+        component: () => import('@/views/elder/save-sd')
+      },
+      {
         name: 'elder.tcm',
         meta: { title: '中医体质辨识', icon: 'el-icon-document' },
         path: 'tcm',
