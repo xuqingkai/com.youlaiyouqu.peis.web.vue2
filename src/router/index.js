@@ -109,6 +109,12 @@ export const constantRoutes = [
         component: () => import('@/views/elder/save')
       },
       {
+        name: 'elder.diagnose',
+        meta: { title: '智能诊断', icon: 'el-icon-document' },
+        path: 'diagnose',
+        component: () => import('@/views/elder/diagnose')
+      },
+      {
         name: 'elder.setting',
         meta: { title: '问卷设置', icon: 'el-icon-document' },
         path: 'setting',
